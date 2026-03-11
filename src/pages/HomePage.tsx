@@ -34,12 +34,12 @@ export function HomePage() {
           className="group relative rounded-2xl border-2 border-primary/30 bg-white p-8 sm:p-10 shadow-[0px_8px_24px_rgba(69,100,50,0.12)] hover:border-primary-light hover:shadow-[0px_12px_32px_rgba(119,164,64,0.15)] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-light focus:ring-offset-2"
         >
           <div className="flex flex-col items-center text-center">
-            <div className="w-full aspect-[4/3] max-h-48 rounded-2xl overflow-hidden bg-primary/5 border border-primary-light/30 mb-5 group-hover:border-primary-light/50 transition-colors">
-              <img src={EDUCATOR_IMG} alt="" className="w-full h-full object-cover" />
-            </div>
             <h2 className="text-xl sm:text-2xl font-raleway-bold text-primary mb-2">
               I’m an Educator
             </h2>
+            <div className="w-full aspect-[4/3] max-h-48 rounded-2xl overflow-hidden bg-primary/5 border border-primary-light/30 mb-5 group-hover:border-primary-light/50 transition-colors">
+              <img src={EDUCATOR_IMG} alt="" className="w-full h-full object-cover" />
+            </div>
             <p className="text-body-color font-raleway-medium text-sm sm:text-base mb-6">
               Schools, nonprofits, libraries, and instructors teaching real-world money skills.
             </p>
@@ -55,12 +55,12 @@ export function HomePage() {
           className="group relative rounded-2xl border-2 border-primary/30 bg-white p-8 sm:p-10 shadow-[0px_8px_24px_rgba(69,100,50,0.12)] hover:border-primary-light hover:shadow-[0px_12px_32px_rgba(119,164,64,0.15)] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-light focus:ring-offset-2"
         >
           <div className="flex flex-col items-center text-center">
-            <div className="w-full aspect-[4/3] max-h-48 rounded-2xl overflow-hidden bg-primary/5 border border-primary-light/30 mb-5 group-hover:border-primary-light/50 transition-colors">
-              <img src={FI_IMG} alt="" className="w-full h-full object-cover" />
-            </div>
             <h2 className="text-xl sm:text-2xl font-raleway-bold text-primary mb-2">
               I’m a Financial Institution
             </h2>
+            <div className="w-full aspect-[4/3] max-h-48 rounded-2xl overflow-hidden bg-primary/5 border border-primary-light/30 mb-5 group-hover:border-primary-light/50 transition-colors">
+              <img src={FI_IMG} alt="" className="w-full h-full object-cover" />
+            </div>
             <p className="text-body-color font-raleway-medium text-sm sm:text-base mb-6">
               Banks, credit unions, and CDFIs building trust and impact through financial literacy.
             </p>
