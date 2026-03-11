@@ -3,14 +3,34 @@
 @tailwind utilities;
 
 :root {
+  /* Background & base */
   --background: #ffffff;
   --foreground: #0a0a0a;
-  --primary: #456432;
+
+  /* Primary – Moneyling brand */
+  --primary: #466431;
   --primary-light: #77a440;
   --brand-green: #a4be86;
+  --gold: #ccb269;
+
+  /* Secondary */
+  --navy: #2c4b8e;
+  --warm-gray: #736f67;
+  --gray-light: #d8d7d6;
+
+  /* Action / urgency */
+  --maroon: #6e3032;
+  --coral: #ea7d59;
+
+  /* Extra diversity */
   --body-color: #4a4a4a;
   --muted: #737373;
+  --mint: #c5e0a6;
+  --cream: #f5f0e6;
+  --teal: #2d6b6b;
 }
+
+/* Full palette: see public folder for reference. Use primary/gold for hero, navy/coral for CTAs, mint/cream for backgrounds. */
 
 body {
   margin: 0;

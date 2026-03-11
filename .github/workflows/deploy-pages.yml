@@ -1,7 +1,7 @@
-# Deploy Partner Dashboard static site to GitHub Pages.
+# Deploy Moneyling.org parent site to GitHub Pages.
 # Repo: Settings → Pages → Source: GitHub Actions (then run this workflow).
 
-name: Deploy Partner Dashboard (static site)
+name: Deploy Moneyling.org (static site)
 
 on:
   push:

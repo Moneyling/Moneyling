@@ -1,9 +1,9 @@
 {
-  "name": "dreamlife-partner-dashboard",
+  "name": "moneyling-org",
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "Standalone Partner Dashboard static site (demo) – same design as Dreamlife-Sim, no connection to main app.",
+  "description": "Moneyling.org – parent website. Static site; pages built from scratch.",
   "scripts": {
     "dev": "vite --open",
     "build": "vite build",
@@ -13,7 +13,7 @@
     "lucide-react": "^0.462.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "recharts": "^2.15.4"
+    "react-router-dom": "^7.6.1"
   },
   "devDependencies": {
     "@types/react": "^18.3.26",
