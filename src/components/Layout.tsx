@@ -5,6 +5,8 @@
 
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import { ShoppingCart } from "lucide-react";
+import { useCart } from "../context/CartContext";
 
 const LOGO_SRC = `${import.meta.env.BASE_URL}moneyling-logo-text.png`;
 
@@ -18,6 +20,7 @@ const NAV_LINKS = [
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const location = useLocation();
+  const { count } = useCart();
 
   return (
     <div className="min-h-screen bg-gray-50 font-raleway flex flex-col">
@@ -31,6 +34,18 @@ export function Layout({ children }: { children: React.ReactNode }) {
             />
           </Link>
           <nav className="flex items-center gap-6" aria-label="Main">
+            <Link
+              to="/payment"
+              className="relative flex items-center gap-1.5 text-sm font-raleway-medium text-body-color hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary/30 rounded px-1"
+              aria-label={`My Cart${count > 0 ? `, ${count} items` : ""}`}
+            >
+              <ShoppingCart className="w-5 h-5" aria-hidden />
+              {count > 0 && (
+                <span className="absolute -top-1.5 -right-1 min-w-[1.25rem] h-5 flex items-center justify-center rounded-full bg-primary text-white text-xs font-raleway-bold">
+                  {count > 99 ? "99+" : count}
+                </span>
+              )}
+            </Link>
             {NAV_LINKS.map(({ to, label }) => (
               <Link
                 key={to}

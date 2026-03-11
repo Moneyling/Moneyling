@@ -38,7 +38,6 @@ export function ForFinancialInstitutionsPage() {
             "CRA, financial literacy, and member-engagement goals in one place",
             "Product and milestone matching—surface the right products at the right time",
             "Partner dashboard: KPIs, funnel, and engagement in real time",
-            "White-label ready: your logo, your events, your curriculum alongside ours",
           ].map((item) => (
             <li
               key={item}

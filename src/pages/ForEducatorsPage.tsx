@@ -5,7 +5,8 @@
 
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, ExternalLink, ChevronDown } from "lucide-react";
+import { ArrowRight, ExternalLink, ChevronDown, Check, ShoppingCart } from "lucide-react";
+import { useCart } from "../context/CartContext";
 
 
 const LMS_BASE = "https://lms.moneyling.org/course";
@@ -45,10 +46,22 @@ const HS_FRAMEWORKS: { name: string; url: string }[] = [
 
 const HS_FULL_PROGRAM_URL = `${LMS_BASE}/moneyling-financial-curriculum-highschool/`;
 
-// Higher Education (Young Adults) – placeholder; add frameworks, courses, and program URL when ready
-const HE_FRAMEWORKS: { name: string; url: string }[] = [];
-const HE_COURSES: { code: string; name: string; url: string; image?: string }[] = [];
+// Higher Education (Young Adults) – same frameworks as High School; Intermediate courses from LMS
+const HE_FRAMEWORKS: { name: string; url: string }[] = [
+  { name: "Decision", url: `${LMS_BASE}/decision-mastery-frameworks-for-making-smart-choices/` },
+  { name: "SMART", url: `${LMS_BASE}/frameworks-smart-goals/` },
+  { name: "Root", url: `${LMS_BASE}/frameworks-root-cause-analysis/` },
+];
+const HE_COURSES: { code: string; name: string; url: string; image?: string }[] = [
+  { code: "YA", name: "Earning Income", url: "https://lms.moneyling.org/course/intermediate-earning-income-course/" },
+  { code: "YA", name: "Savings", url: "https://lms.moneyling.org/course/intermediate-savings-course/" },
+  { code: "YA", name: "Spending", url: "https://lms.moneyling.org/course/intermediate-spending-course/" },
+  { code: "YA", name: "Managing Credit", url: "https://lms.moneyling.org/course/intermediate-credit-course/" },
+  { code: "YA", name: "Investing", url: "https://lms.moneyling.org/course/intermediate-investing-course/" },
+  { code: "YA", name: "Managing Risk", url: "https://lms.moneyling.org/course/intermediate-managing-risk-course/" },
+];
 const HE_FULL_PROGRAM_URL = "https://dreamlife.moneyling.org";
+const LMS_COURSES_URL = "https://lms.moneyling.org/courses/";
 
 const HS_COURSES: { code: string; name: string; url: string; image?: string }[] = [
   { code: "NS-12", name: "Earning Income", url: `${LMS_BASE}/moneyling-earning-income-course/`, image: "NS-12 Earning Income.png" },
@@ -92,7 +105,11 @@ function CourseChip({
   return <span className={className}>{content}</span>;
 }
 
+const addToCartBtnClass =
+  "shrink-0 inline-flex items-center gap-1.5 rounded-lg border-2 border-primary/40 bg-white px-2.5 py-1.5 text-xs font-raleway-bold text-primary hover:bg-primary/10 hover:border-primary transition-colors";
+
 export function ForEducatorsPage() {
+  const { addItem } = useCart();
   const [msALaCarteOpen, setMsALaCarteOpen] = useState(false);
   const [msFullProgramOpen, setMsFullProgramOpen] = useState(false);
   const [hsALaCarteOpen, setHsALaCarteOpen] = useState(false);
@@ -147,20 +164,26 @@ export function ForEducatorsPage() {
         <p className="text-body-color font-raleway-medium text-center max-w-2xl mx-auto mb-8">
           More states require a personal financial education credit to graduate. Moneyling gives schools and educators ready-made, standards-aligned curriculum—so you can meet mandates without the scramble. All our courses and programs include complete National Standard lessons for the six core financial topics: earning income, saving, spending, credit, investing, and managing risk.
         </p>
-        <div className="grid sm:grid-cols-2 gap-4 mb-6">
-          <div className="rounded-xl border-l-4 border-navy border border-gray-light/80 bg-mint/20 p-4 sm:p-5 shadow-sm">
-            <h3 className="text-sm font-raleway-bold text-navy uppercase tracking-wider mb-2">Teacher shortage? No problem.</h3>
-            <p className="text-sm text-body-color font-raleway-medium">
-              Use Moneyling for teacherless or low-supervision classrooms. Students can progress through lessons and quizzes on their own while you track completion from your dashboard.
-            </p>
-          </div>
-          <div className="rounded-xl border-l-4 border-teal border border-gray-light/80 bg-cream/80 p-4 sm:p-5 shadow-sm">
-            <h3 className="text-sm font-raleway-bold text-teal uppercase tracking-wider mb-2">Self-grading quizzes</h3>
-            <p className="text-sm text-body-color font-raleway-medium">
-              Built-in quizzes that grade automatically. Less paperwork, more time for teaching and intervention where it matters.
-            </p>
-          </div>
-        </div>
+        <ul className="grid sm:grid-cols-2 gap-3 mb-6 max-w-3xl mx-auto list-none">
+          {[
+            "Integrated calculators",
+            "Decision tools",
+            "Auto-grading quizzes",
+            "Asynchronous or teacher-directed",
+            "COPPA compliant & National Standards aligned",
+            "Story-based curriculum with dashboard tracking",
+          ].map((item) => (
+            <li
+              key={item}
+              className="flex items-start gap-3 text-body-color font-raleway-medium text-sm sm:text-base"
+            >
+              <span className="shrink-0 w-6 h-6 rounded-full bg-primary/15 flex items-center justify-center mt-0.5">
+                <Check className="w-3.5 h-3.5 text-primary" />
+              </span>
+              {item}
+            </li>
+          ))}
+        </ul>
         <h3 className="text-base sm:text-lg font-raleway-bold text-primary text-center mb-4">
           We are COPPA Compliant and Meet the National Standards for Personal Financial Education
         </h3>
@@ -255,12 +278,12 @@ export function ForEducatorsPage() {
                 </div>
                 <ul className="rounded-lg border border-brand-green/40 divide-y divide-brand-green/20 overflow-hidden">
                   {MS_COURSES.map((c, i) => (
-                    <li key={i}>
+                    <li key={i} className="flex items-center gap-2">
                       <a
                         href={c.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-4 py-3 flex items-center gap-3 font-raleway-medium text-body-color hover:bg-primary/5 transition-colors"
+                        className="flex-1 px-4 py-3 flex items-center gap-3 font-raleway-medium text-body-color hover:bg-primary/5 transition-colors min-w-0"
                       >
                         <span className="w-9 h-9 shrink-0 rounded-lg overflow-hidden bg-primary/5 flex items-center justify-center">
                           {c.image ? (
@@ -272,9 +295,18 @@ export function ForEducatorsPage() {
                         {c.code && (
                           <span className="shrink-0 text-xs font-raleway-bold text-primary uppercase">{c.code}</span>
                         )}
-                        <span className="flex-1">{c.name}</span>
+                        <span className="flex-1 truncate">{c.name}</span>
                         <ExternalLink className="w-3.5 h-3.5 text-primary shrink-0" aria-hidden />
                       </a>
+                      <button
+                        type="button"
+                        onClick={() => addItem({ type: "course", code: c.code, name: c.name, url: c.url })}
+                        className={addToCartBtnClass}
+                        aria-label={`Add ${c.name} to cart`}
+                      >
+                        <ShoppingCart className="w-3.5 h-3.5" aria-hidden />
+                        Add to cart
+                      </button>
                     </li>
                   ))}
                 </ul>
@@ -324,6 +356,14 @@ export function ForEducatorsPage() {
                     Auto-grading assessments
                   </li>
                 </ul>
+                <button
+                  type="button"
+                  onClick={() => addItem({ type: "program", code: "NS-8", name: "Full NS-8 program", id: "full-ns-8" })}
+                  className={`mt-3 ${addToCartBtnClass}`}
+                >
+                  <ShoppingCart className="w-3.5 h-3.5" aria-hidden />
+                  Add to cart
+                </button>
               </div>
             )}
           </div>
@@ -333,7 +373,19 @@ export function ForEducatorsPage() {
       {/* High School Offerings – accordion dropdowns, side by side on sm+ */}
       <section className="mb-12 rounded-2xl bg-cream/50 border border-gold/30 px-4 py-6 sm:px-6">
         <h2 className="text-xl font-raleway-bold text-primary mb-1">High School Offerings</h2>
-        <div className="w-16 h-0.5 bg-gold rounded-full mb-4" aria-hidden />
+        <div className="w-16 h-0.5 bg-gold rounded-full mb-4 mx-auto" aria-hidden />
+        <div className="flex justify-center mb-4">
+          <div className="rounded-xl border-2 border-primary/20 bg-white p-2 shadow-md">
+            <img
+              src={`${ASSETS}${encodeURIComponent("meet the characters.png")}`}
+              alt="Meet the characters"
+              className="max-w-[280px] sm:max-w-[320px] h-auto object-contain block"
+            />
+          </div>
+        </div>
+        <p className="text-body-color font-raleway-medium text-sm sm:text-base text-center max-w-2xl mx-auto mb-6">
+          These are our high school characters. They give context to financial concepts as they laugh, smile, joke, and cry through real-life situations that your students can relate to.
+        </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-start">
           {/* À la carte dropdown */}
           <div className={`rounded-xl border-2 overflow-hidden bg-white transition-colors ${
@@ -382,12 +434,12 @@ export function ForEducatorsPage() {
                 </div>
                 <ul className="rounded-lg border border-brand-green/40 divide-y divide-brand-green/20 overflow-hidden">
                   {HS_COURSES.map((c, i) => (
-                    <li key={i}>
+                    <li key={i} className="flex items-center gap-2">
                       <a
                         href={c.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-4 py-3 flex items-center gap-3 font-raleway-medium text-body-color hover:bg-primary/5 transition-colors"
+                        className="flex-1 px-4 py-3 flex items-center gap-3 font-raleway-medium text-body-color hover:bg-primary/5 transition-colors min-w-0"
                       >
                         <span className="w-9 h-9 shrink-0 rounded-lg overflow-hidden bg-primary/5 flex items-center justify-center">
                           {c.image ? (
@@ -399,9 +451,18 @@ export function ForEducatorsPage() {
                         {c.code && (
                           <span className="shrink-0 text-xs font-raleway-bold text-primary uppercase">{c.code}</span>
                         )}
-                        <span className="flex-1">{c.name}</span>
+                        <span className="flex-1 truncate">{c.name}</span>
                         <ExternalLink className="w-3.5 h-3.5 text-primary shrink-0" aria-hidden />
                       </a>
+                      <button
+                        type="button"
+                        onClick={() => addItem({ type: "course", code: c.code, name: c.name, url: c.url })}
+                        className={addToCartBtnClass}
+                        aria-label={`Add ${c.name} to cart`}
+                      >
+                        <ShoppingCart className="w-3.5 h-3.5" aria-hidden />
+                        Add to cart
+                      </button>
                     </li>
                   ))}
                 </ul>
@@ -424,7 +485,7 @@ export function ForEducatorsPage() {
               <div>
                 <h3 className="text-sm font-raleway-bold text-primary uppercase tracking-wider">Full NS-12 program</h3>
                 <p className="text-sm text-body-color font-raleway-medium mt-0.5">
-                  Imagine it. Plan it. Live it.—complete high school curriculum with all courses and frameworks.
+                  Full National Standards for Personal Financial Education by 12th-grade curriculum.
                 </p>
               </div>
               <ChevronDown
@@ -448,28 +509,50 @@ export function ForEducatorsPage() {
                   </li>
                   <li className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" aria-hidden />
-                    Imagine it. Plan it. Live it.—all six core topics and frameworks in one program
+                    Full National Standards for Personal Financial Education by 12th-grade curriculum
                   </li>
                 </ul>
-                <a
-                  href={HS_FULL_PROGRAM_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm font-raleway-bold text-primary hover:underline"
-                >
-                  View Full NS-12 program on LMS
-                  <ExternalLink className="w-3.5 h-3.5" aria-hidden />
-                </a>
+                <div className="flex flex-wrap items-center gap-3">
+                  <a
+                    href={HS_FULL_PROGRAM_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-sm font-raleway-bold text-primary hover:underline"
+                  >
+                    View Full NS-12 program on LMS
+                    <ExternalLink className="w-3.5 h-3.5" aria-hidden />
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => addItem({ type: "program", code: "NS-12", name: "Full NS-12 program", id: "full-ns-12" })}
+                    className={addToCartBtnClass}
+                  >
+                    <ShoppingCart className="w-3.5 h-3.5" aria-hidden />
+                    Add to cart
+                  </button>
+                </div>
               </div>
             )}
           </div>
         </div>
       </section>
 
-      {/* Higher Education (Young Adults) – same accordion structure; content TBD */}
+      {/* Higher Education (Young Adults) – same accordion structure; hero image like High School */}
       <section className="mb-12 rounded-2xl bg-primary/5 border border-primary/15 px-4 py-6 sm:px-6">
         <h2 className="text-xl font-raleway-bold text-primary mb-1">Higher Education (Young Adults)</h2>
-        <div className="w-16 h-0.5 bg-teal rounded-full mb-4" aria-hidden />
+        <div className="w-16 h-0.5 bg-teal rounded-full mb-4 mx-auto" aria-hidden />
+        <div className="flex justify-center mb-4">
+          <div className="rounded-xl border-2 border-primary/20 bg-white p-2 shadow-md">
+            <img
+              src={`${ASSETS}${encodeURIComponent("general users.png")}`}
+              alt="Young adults – Dreamlife-Sim"
+              className="max-w-[280px] sm:max-w-[320px] h-auto object-contain block"
+            />
+          </div>
+        </div>
+        <p className="text-body-color font-raleway-medium text-sm sm:text-base text-center max-w-2xl mx-auto mb-6">
+          Financial navigation for young adults: real-world context, micro-tasks, and lessons that meet students where they are.
+        </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-start">
           {/* À la carte dropdown */}
           <div className={`rounded-xl border-2 overflow-hidden bg-white transition-colors ${
@@ -523,31 +606,55 @@ export function ForEducatorsPage() {
                 <div>
                   <p className="text-xs font-raleway-bold text-primary uppercase tracking-wider mb-2">Courses</p>
                   {HE_COURSES.length > 0 ? (
-                    <ul className="rounded-lg border border-brand-green/40 divide-y divide-brand-green/20 overflow-hidden">
-                      {HE_COURSES.map((c, i) => (
-                        <li key={i}>
-                          <a
-                            href={c.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="px-4 py-3 flex items-center gap-3 font-raleway-medium text-body-color hover:bg-primary/5 transition-colors"
-                          >
-                            <span className="w-9 h-9 shrink-0 rounded-lg overflow-hidden bg-primary/5 flex items-center justify-center">
-                              {c.image ? (
-                                <img src={`${ASSETS}${encodeURIComponent(c.image)}`} alt="" className="w-full h-full object-cover" />
-                              ) : (
-                                <span className="text-xs font-raleway-bold text-primary">HE</span>
+                    <>
+                      <ul className="rounded-lg border border-brand-green/40 divide-y divide-brand-green/20 overflow-hidden">
+                        {HE_COURSES.map((c, i) => (
+                          <li key={i}>
+                            <div className="px-4 py-3 flex items-center gap-3 font-raleway-medium">
+                              <span className="w-9 h-9 shrink-0 rounded-lg overflow-hidden bg-primary/5 flex items-center justify-center">
+                                {c.image ? (
+                                  <img src={`${ASSETS}${encodeURIComponent(c.image)}`} alt="" className="w-full h-full object-cover" />
+                                ) : (
+                                  <span className="text-xs font-raleway-bold text-primary">YA</span>
+                                )}
+                              </span>
+                              {c.code && (
+                                <span className="shrink-0 text-xs font-raleway-bold text-primary uppercase">{c.code}</span>
                               )}
-                            </span>
-                            {c.code && (
-                              <span className="shrink-0 text-xs font-raleway-bold text-primary uppercase">{c.code}</span>
-                            )}
-                            <span className="flex-1">{c.name}</span>
-                            <ExternalLink className="w-3.5 h-3.5 text-primary shrink-0" aria-hidden />
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
+                              <span className="flex-1 text-body-color">{c.name}</span>
+                            </div>
+                            <div className="px-4 pb-3 pt-0 pl-16 text-sm text-body-color font-raleway-medium flex flex-wrap items-center gap-2">
+                              <a
+                                href={c.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 text-primary font-raleway-bold hover:underline"
+                              >
+                                Open course
+                                <ExternalLink className="w-3.5 h-3.5 shrink-0" aria-hidden />
+                              </a>
+                              <button
+                                type="button"
+                                onClick={() => addItem({ type: "course", code: c.code, name: c.name, url: c.url })}
+                                className={addToCartBtnClass}
+                              >
+                                <ShoppingCart className="w-3.5 h-3.5" aria-hidden />
+                                Add to cart
+                              </button>
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                      <a
+                        href={LMS_COURSES_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-3 inline-flex items-center gap-2 text-sm font-raleway-bold text-primary hover:underline"
+                      >
+                        View all courses at lms.moneyling.org
+                        <ExternalLink className="w-3.5 h-3.5 shrink-0" aria-hidden />
+                      </a>
+                    </>
                   ) : (
                     <p className="text-sm text-body-color font-raleway-medium italic">Content coming soon.</p>
                   )}
@@ -584,50 +691,99 @@ export function ForEducatorsPage() {
             {heFullProgramOpen && (
               <div id="he-full-program-content" className="border-t border-primary/20 bg-white p-4 sm:p-5" role="region" aria-label="Higher Education full program details">
                 <h3 className="text-xs font-raleway-bold text-primary uppercase tracking-wider mb-3">What the program includes</h3>
-                <ul className="space-y-2 text-sm text-body-color font-raleway-medium mb-4">
-                  <li className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" aria-hidden />
-                    <strong className="font-raleway-bold text-primary">Dreamlife-Sim Subscription</strong> — A financial navigation experience for users, providing micro-tasks and lessons to reach their destination.
+                <ul className="space-y-0 overflow-hidden rounded-lg border border-brand-green/40 divide-y divide-brand-green/20">
+                  <li>
+                    <div className="px-4 py-3 flex items-center gap-3 font-raleway-medium">
+                      <span className="w-9 h-9 shrink-0 rounded-lg overflow-hidden bg-primary/5 flex items-center justify-center">
+                        <img
+                          src={`${ASSETS}${encodeURIComponent("Dreamlife-Sim Dashboard.png")}`}
+                          alt=""
+                          className="w-full h-full object-cover"
+                        />
+                      </span>
+                      <span className="shrink-0 text-xs font-raleway-bold text-primary uppercase">YA</span>
+                      <span className="flex-1 text-body-color">Dreamlife-Sim Subscription</span>
+                    </div>
+                    <div className="px-4 pb-3 pt-0 pl-[calc(1rem+2.25rem+0.75rem)] sm:pl-16 text-sm text-body-color font-raleway-medium">
+                      <p className="mb-2">A financial navigation experience for users, providing micro-tasks and lessons to reach their destination.</p>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <a
+                          href={HE_FULL_PROGRAM_URL}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 text-sm font-raleway-bold text-primary hover:underline"
+                        >
+                          Try Dreamlife-Sim Now.
+                          <ExternalLink className="w-3.5 h-3.5 shrink-0" aria-hidden />
+                        </a>
+                        <button
+                          type="button"
+                          onClick={() => addItem({ type: "program", code: "YA", name: "Higher Education full program (Dreamlife-Sim)", id: "full-he" })}
+                          className={addToCartBtnClass}
+                        >
+                          <ShoppingCart className="w-3.5 h-3.5" aria-hidden />
+                          Add to cart
+                        </button>
+                      </div>
+                    </div>
                   </li>
                 </ul>
-                <a
-                  href={HE_FULL_PROGRAM_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 text-sm font-raleway-bold text-primary hover:underline"
-                >
-                  <span className="w-9 h-9 shrink-0 rounded-lg overflow-hidden bg-primary/5 flex items-center justify-center">
-                    <img
-                      src={`${ASSETS}${encodeURIComponent("general users.png")}`}
-                      alt=""
-                      className="w-full h-full object-cover"
-                    />
-                  </span>
-                  Try Dreamlife-Sim Now.
-                  <ExternalLink className="w-3.5 h-3.5 shrink-0" aria-hidden />
-                </a>
               </div>
             )}
           </div>
         </div>
       </section>
 
-      {/* Primary CTA */}
-      <section className="rounded-2xl bg-gradient-to-br from-primary/15 to-mint/20 border-2 border-primary/20 p-8 sm:p-10 text-center">
-        <h2 className="text-xl sm:text-2xl font-raleway-bold text-primary mb-3">
+      {/* Primary CTA – step-by-step setup */}
+      <section className="rounded-2xl bg-gradient-to-br from-primary/15 to-mint/20 border-2 border-primary/20 p-8 sm:p-10">
+        <h2 className="text-xl sm:text-2xl font-raleway-bold text-primary mb-3 text-center">
           Ready to bring Moneyling to your students?
         </h2>
-        <div className="w-12 h-0.5 bg-gold rounded-full mx-auto mb-4" aria-hidden />
-        <p className="text-body-color font-raleway-medium text-sm sm:text-base mb-6 max-w-xl mx-auto">
-          Get access to the platform and curriculum. We’ll respond quickly and walk you through setup.
+        <div className="w-12 h-0.5 bg-gold rounded-full mx-auto mb-6" aria-hidden />
+        <p className="text-body-color font-raleway-medium text-sm sm:text-base text-center mb-6 max-w-xl mx-auto">
+          Follow these steps to get set up:
         </p>
-        <div className="flex flex-wrap justify-center gap-4">
+        <ol className="max-w-2xl mx-auto space-y-4 text-left list-none counter-reset">
+          <li className="flex gap-3">
+            <span className="shrink-0 w-8 h-8 rounded-full bg-primary text-white font-raleway-bold text-sm flex items-center justify-center">1</span>
+            <span className="text-body-color font-raleway-medium text-sm sm:text-base pt-0.5">Select your courses, program, or products.</span>
+          </li>
+          <li className="flex gap-3">
+            <span className="shrink-0 w-8 h-8 rounded-full bg-primary text-white font-raleway-bold text-sm flex items-center justify-center">2</span>
+            <span className="text-body-color font-raleway-medium text-sm sm:text-base pt-0.5">Check out or save/print your cart for your PO. Download our W-9.</span>
+          </li>
+          <li className="flex gap-3">
+            <span className="shrink-0 w-8 h-8 rounded-full bg-primary text-white font-raleway-bold text-sm flex items-center justify-center">3</span>
+            <span className="text-body-color font-raleway-medium text-sm sm:text-base pt-0.5">
+              <a
+                href="https://lms.moneyling.org/register/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary font-raleway-bold hover:underline"
+              >
+                Create your instructor account
+              </a>
+              .
+            </span>
+          </li>
+          <li className="flex gap-3">
+            <span className="shrink-0 w-8 h-8 rounded-full bg-primary text-white font-raleway-bold text-sm flex items-center justify-center">4</span>
+            <span className="text-body-color font-raleway-medium text-sm sm:text-base pt-0.5">You’ll receive an email within 48 hours when you’re all set up!</span>
+          </li>
+        </ol>
+        <div className="flex flex-wrap justify-center gap-4 mt-8">
           <Link
-            to="/contact?audience=educator"
+            to="/payment"
             className="inline-flex items-center justify-center rounded-md text-sm font-medium bg-primary text-white hover:bg-primary/90 transition-colors px-6 py-3 border-2 border-gold/50 shadow-md"
           >
-            Request access
+            My Cart
             <ArrowRight className="w-4 h-4 ml-2" />
+          </Link>
+          <Link
+            to="/contact?audience=educator"
+            className="inline-flex items-center justify-center rounded-md text-sm font-medium border-2 border-primary text-primary hover:bg-primary/10 transition-colors px-6 py-3"
+          >
+            Contact us
           </Link>
         </div>
       </section>
