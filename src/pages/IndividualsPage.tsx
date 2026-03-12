@@ -169,7 +169,7 @@ export function IndividualsPage() {
           <div className="flex justify-center mt-8 sm:mt-10 -mb-16 sm:-mb-24 relative z-10">
             <div className="rounded-2xl border-2 border-primary/20 bg-white p-2 shadow-xl w-full max-w-[480px] sm:max-w-[560px] md:max-w-[640px] lg:max-w-[720px]">
               <img
-                src={`${ASSETS}${encodeURIComponent("general users.png")}`}
+                src={`${ASSETS}general-users.png`}
                 alt="Dreamlife-Sim – financial navigation for adults"
                 className="w-full h-auto object-contain block"
               />

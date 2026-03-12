@@ -327,7 +327,7 @@ export function ForEducatorsPage() {
         <div className="flex justify-center mb-4">
           <div className="card-glass rounded-xl p-2">
             <img
-              src={`${ASSETS}${encodeURIComponent("2.png")}`}
+              src={`${ASSETS}middle-school-offerings.png`}
               alt="Middle school offerings"
               className="max-w-[280px] sm:max-w-[320px] h-auto object-contain block"
             />
@@ -487,7 +487,7 @@ export function ForEducatorsPage() {
         <div className="flex justify-center mb-4">
           <div className="card-glass rounded-xl p-2">
             <img
-              src={`${ASSETS}${encodeURIComponent("1.png")}`}
+              src={`${ASSETS}high-school-offerings.png`}
               alt="High school offerings"
               className="max-w-[280px] sm:max-w-[320px] h-auto object-contain block"
             />
@@ -661,7 +661,7 @@ export function ForEducatorsPage() {
         <div className="flex justify-center mb-4">
           <div className="card-glass rounded-xl p-2">
             <img
-              src={`${ASSETS}${encodeURIComponent("general users.png")}`}
+              src={`${ASSETS}general-users.png`}
               alt="Young adults – Dreamlife-Sim"
               className="max-w-[280px] sm:max-w-[320px] h-auto object-contain block"
             />

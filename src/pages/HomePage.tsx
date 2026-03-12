@@ -10,7 +10,7 @@ import { ArrowRight } from "lucide-react";
 const BASE = import.meta.env.BASE_URL;
 const EDUCATOR_IMG = `${BASE}${encodeURIComponent("Educator Pic.png")}`;
 const FI_IMG = `${BASE}${encodeURIComponent("Financial Instittutions Pic.png")}`;
-const INDIVIDUALS_IMG = `${BASE}${encodeURIComponent("general users.png")}`;
+const INDIVIDUALS_IMG = `${BASE}general-users.png`;
 
 export function HomePage() {
   return (
