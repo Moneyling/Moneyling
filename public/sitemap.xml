@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://moneyling.org/</loc><changefreq>weekly</changefreq><priority>1</priority></url>
+  <url><loc>https://moneyling.org/for-educators</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://moneyling.org/for-financial-institutions</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://moneyling.org/individuals</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://moneyling.org/about</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://moneyling.org/contact</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+</urlset>

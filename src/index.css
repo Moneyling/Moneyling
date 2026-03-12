@@ -50,3 +50,58 @@ body {
   font-family: "Raleway", sans-serif;
   font-weight: 700;
 }
+
+/* Global green glass style: buttons, dropdowns, icon containers. Use .btn-glass, .btn-glass-outline, .card-glass, .icon-glass as the site standard. */
+@layer components {
+  .glass-shadow {
+    box-shadow:
+      inset 3px 3px 14px rgba(255, 255, 255, 0.6),
+      inset 1px 1px 0 0 rgba(255, 255, 255, 0.5),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.08),
+      0 3px 8px rgba(69, 100, 50, 0.2);
+  }
+
+  .card-glass {
+    @apply rounded-xl border border-white/50 bg-gradient-to-b from-mint via-brand-green to-primary-light backdrop-blur-md;
+    box-shadow:
+      inset 3px 3px 14px rgba(255, 255, 255, 0.6),
+      inset 1px 1px 0 0 rgba(255, 255, 255, 0.5),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.08),
+      0 3px 8px rgba(69, 100, 50, 0.2);
+  }
+
+  .btn-glass {
+    @apply rounded-xl border border-white/50 font-raleway-medium text-primary bg-gradient-to-b from-mint via-brand-green to-primary-light backdrop-blur-md transition-colors;
+    box-shadow:
+      inset 3px 3px 14px rgba(255, 255, 255, 0.6),
+      inset 1px 1px 0 0 rgba(255, 255, 255, 0.5),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.08),
+      0 3px 8px rgba(69, 100, 50, 0.2);
+  }
+  .btn-glass:hover {
+    @apply from-mint/95 via-brand-green/95 to-primary-light/95;
+  }
+
+  .btn-glass-outline {
+    @apply rounded-xl border-2 border-primary/60 font-raleway-medium text-primary bg-white/90 backdrop-blur-md transition-colors;
+    box-shadow:
+      inset 1px 1px 0 0 rgba(255, 255, 255, 0.7),
+      0 2px 6px rgba(69, 100, 50, 0.15);
+  }
+  .btn-glass-outline:hover {
+    @apply border-primary bg-gradient-to-b from-mint/90 via-brand-green/90 to-primary-light/90;
+    box-shadow:
+      inset 3px 3px 14px rgba(255, 255, 255, 0.5),
+      inset 1px 1px 0 0 rgba(255, 255, 255, 0.4),
+      0 3px 8px rgba(69, 100, 50, 0.2);
+  }
+
+  .icon-glass {
+    @apply rounded-lg border border-white/50 flex items-center justify-center bg-gradient-to-b from-mint via-brand-green to-primary-light backdrop-blur-md;
+    box-shadow:
+      inset 3px 3px 14px rgba(255, 255, 255, 0.6),
+      inset 1px 1px 0 0 rgba(255, 255, 255, 0.5),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.08),
+      0 3px 8px rgba(69, 100, 50, 0.2);
+  }
+}

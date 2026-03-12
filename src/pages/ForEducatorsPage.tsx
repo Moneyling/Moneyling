@@ -8,19 +8,18 @@ import { Link } from "react-router-dom";
 import { ArrowRight, ExternalLink, ChevronDown, Check, ShoppingCart } from "lucide-react";
 import { useCart } from "../context/CartContext";
 
-
 const LMS_BASE = "https://lms.moneyling.org/course";
 const ASSETS = import.meta.env.BASE_URL;
 
 // Demo items – links to corresponding LMS courses
 const DEMO_MS = {
-  code: "NS",
-  topic: "earning income",
+  code: "NS-8",
+  topic: "Earning Income",
   url: `${LMS_BASE}/story-based-middle-school-national-standard-course-4/`,
 };
 const DEMO_HS = {
   code: "NS-12",
-  topic: "spending",
+  topic: "Spending",
   url: `${LMS_BASE}/moneyling-ns-12-spending-course/`,
 };
 
@@ -76,13 +75,16 @@ function CourseChip({
   code,
   topic,
   url,
+  glass,
 }: {
   code: string;
   topic: string;
   url?: string;
+  glass?: boolean;
 }) {
-  const className =
-    "inline-flex flex-wrap items-center gap-2 rounded-lg border-2 border-primary/40 bg-primary/5 px-3 py-2 font-raleway-bold text-primary hover:border-primary hover:bg-primary/10 transition-colors";
+  const baseClass = glass
+    ? "btn-glass inline-flex flex-wrap items-center justify-center gap-2 px-3 py-2 font-raleway-bold"
+    : "inline-flex flex-wrap items-center gap-2 rounded-lg border-2 border-primary/40 bg-primary/5 px-3 py-2 font-raleway-bold text-primary hover:border-primary hover:bg-primary/10 transition-colors";
   const content = (
     <>
       <span className="text-xs uppercase tracking-wider">{code}</span>
@@ -96,17 +98,113 @@ function CourseChip({
         href={url}
         target="_blank"
         rel="noopener noreferrer"
-        className={className}
+        className={baseClass}
       >
         {content}
       </a>
     );
   }
-  return <span className={className}>{content}</span>;
+  return <span className={baseClass}>{content}</span>;
 }
 
 const addToCartBtnClass =
-  "shrink-0 inline-flex items-center gap-1.5 rounded-lg border-2 border-primary/40 bg-white px-2.5 py-1.5 text-xs font-raleway-bold text-primary hover:bg-primary/10 hover:border-primary transition-colors";
+  "btn-glass-outline shrink-0 inline-flex items-center gap-1.5 text-xs font-raleway-bold px-2.5 py-1.5";
+
+// Teacher FAQs from https://moneyling.org/faqs (School & Community, LMS, and questions teachers often ask)
+const EDU_FAQ_ITEMS: { question: string; answer: string }[] = [
+  {
+    question: "What exactly is Moneyling?",
+    answer: "Moneyling is a story-based financial literacy program designed for real classrooms and real students. Lessons are built around relatable characters and everyday decisions—spending, saving, earning, investing, helping family, and planning for the future—so students understand why financial choices matter, not just how they work.",
+  },
+  {
+    question: "Who is Moneyling for?",
+    answer: "Moneyling is designed for K-12 financial education: middle school, high school, and community-based programs. We work especially well with diverse student populations, first-generation students, and students who may not see themselves reflected in traditional financial literacy materials. Our personal finance education is built for equitable access.",
+  },
+  {
+    question: "What materials are included?",
+    answer: "Depending on the course or unit, Moneyling includes: story-based lessons and modules, teacher guides and pacing suggestions, student activities and reflections, interactive tools (digital and classroom-based), and optional community or family connection events. Everything is designed to be plug-and-play, not extra work.",
+  },
+  {
+    question: "Does Moneyling align with standards?",
+    answer: "Yes. Moneyling aligns with the Jump$tart National Standards for Personal Financial Education and state financial literacy standards. Our financial literacy curriculum can be used as a standalone personal finance course or fit naturally into existing K-12 courses (financial literacy, math, social studies, ELA, advisory, world language, and more).",
+  },
+  {
+    question: "Is your financial literacy curriculum Jump$tart-aligned?",
+    answer: "Yes. Our standards-aligned financial education curriculum is designed to meet the Jump$tart National Standards for Personal Financial Education (earning income, spending, saving, investing, managing credit, managing risk). We support middle school (NS-8) and high school (NS-12) personal finance education with story-based lessons and an LMS that tracks progress.",
+  },
+  {
+    question: "How much does it cost?",
+    answer: "Moneyling often offers free pilot access or sponsored programs for teachers and schools to explore the curriculum with students. The philosophy is simple: try it first. If Moneyling proves valuable in your classroom, schools can choose to continue with a paid partnership in the future.",
+  },
+  {
+    question: "Is this a one-week program or a full course?",
+    answer: "Both. Moneyling is modular by design. You can use a single lesson or short unit, run a multi-week module, implement a full course, or adopt the entire program. Teachers choose what fits their schedule and students.",
+  },
+  {
+    question: "What makes Moneyling different from other financial literacy programs?",
+    answer: "Moneyling is story-first, human-centered, and classroom-tested. Instead of worksheets and lectures, students learn personal finance through characters, conversations, and decisions that feel familiar and emotionally real. Our financial literacy program is designed for equitable access and works well with diverse and first-generation students.",
+  },
+  {
+    question: "Do teachers need a finance background?",
+    answer: "No. Moneyling is built for teachers, not financial professionals. Concepts are scaffolded, explained clearly, and supported with teacher-friendly resources.",
+  },
+  {
+    question: "Does Moneyling involve families or the community?",
+    answer: "It can. Many lessons naturally extend into family conversations, and some programs include community events or partnerships that help students connect classroom learning to real-world resources.",
+  },
+  {
+    question: "What is the Moneyling LMS?",
+    answer: "The Moneyling Learning Management System (LMS) is the digital home for Moneyling courses. It's where teachers and students access lessons, tools, activities, and progress tracking.",
+  },
+  {
+    question: "What can teachers do in the LMS?",
+    answer: "Teachers can assign lessons and activities, track student completion and progress, access interactive tools (e.g., goal-setting, analysis tools), use built-in checks for understanding, assign enrichment work, and create sub plans.",
+  },
+  {
+    question: "What do students do in the LMS?",
+    answer: "Students read stories, complete activities, interact with tools, reflect on decisions, and apply concepts to real-world scenarios—all at an age-appropriate pace.",
+  },
+  {
+    question: "Does Moneyling require special technology?",
+    answer: "No. Moneyling works on standard devices (Chromebooks, laptops, tablets) and does not require special software or advanced tech skills.",
+  },
+  {
+    question: "Can I use the LMS for blended or in-person classes?",
+    answer: "Yes. The LMS supports blended learning, in-person instruction, and at-home extensions. Teachers decide how much or how little to use it.",
+  },
+  {
+    question: "How does the LMS help with accountability?",
+    answer: "The LMS tracks completion and engagement so teachers can see what students have done without adding grading or administrative burden.",
+  },
+  {
+    question: "Can I differentiate instruction using the LMS?",
+    answer: "Yes. Progress data helps teachers identify who needs support, who is ready for extension, and where class-wide clarification may be needed.",
+  },
+  {
+    question: "Is this more work for me?",
+    answer: "Moneyling is designed to be plug-and-play. Teacher guides, pacing suggestions, and ready-to-use activities mean you can focus on teaching, not prep. The LMS also reduces grading and tracking burden.",
+  },
+  {
+    question: "Is this scripted?",
+    answer: "No. Lessons provide structure, but teachers maintain autonomy. You can adapt discussions, pacing, and activities to fit your classroom.",
+  },
+  {
+    question: "Will this work with reluctant or anxious students?",
+    answer: "Yes. Story-based learning lowers pressure and invites discussion without requiring students to share personal financial information.",
+  },
+  {
+    question: "Is Moneyling culturally responsive?",
+    answer: "Yes. Characters and stories intentionally reflect diverse backgrounds, family structures, and lived experiences—without stereotypes or tokenism.",
+  },
+  {
+    question: "Do students have to share personal financial details?",
+    answer: "No. All scenarios are fictional or hypothetical. Students apply concepts without revealing personal or family finances.",
+  },
+  {
+    question: "Do I have to use every part of the program?",
+    answer: "Not at all. Moneyling is modular. Use what fits your goals and students.",
+  },
+];
 
 export function ForEducatorsPage() {
   const { addItem } = useCart();
@@ -116,6 +214,7 @@ export function ForEducatorsPage() {
   const [hsFullProgramOpen, setHsFullProgramOpen] = useState(false);
   const [heALaCarteOpen, setHeALaCarteOpen] = useState(false);
   const [heFullProgramOpen, setHeFullProgramOpen] = useState(false);
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
   const openMsALaCarte = () => {
     setMsFullProgramOpen(false);
@@ -144,14 +243,13 @@ export function ForEducatorsPage() {
 
   return (
     <div className="w-full max-w-5xl mx-auto px-4 py-10 sm:py-14 bg-gradient-to-b from-cream/30 to-white">
-      {/* LMS intro – green container with gold accent */}
-      <section className="rounded-2xl bg-primary text-white px-5 py-4 sm:px-6 sm:py-5 mb-10 text-center shadow-lg border-l-4 border-gold">
-        <h2 className="text-lg sm:text-xl font-raleway-bold text-white">
-          Moneyling Learning Management System (LMS)
-        </h2>
-        <div className="my-3 h-px bg-gold/50 max-w-xs mx-auto" aria-hidden />
-        <p className="text-sm sm:text-base font-raleway-medium text-white max-w-2xl mx-auto leading-relaxed">
-          Welcome to the Moneyling Learning Management System—your gateway to financial empowerment. This platform is designed to provide teachers, students, and community members with seamless access to a range of financial education courses, programs, and resources.
+      {/* Page title */}
+      <section className="text-center mb-12">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-raleway-bold text-primary leading-tight mb-4">
+          Personal Financial Education Curriculum
+        </h1>
+        <p className="text-body-color font-raleway-medium text-base sm:text-lg max-w-3xl mx-auto">
+          We provide six core financial education topics (Earning, Saving, Spending, Investing, Credit, and Managing Risk). Over 172 chapters per level and 340 plus lessons.
         </p>
       </section>
 
@@ -177,28 +275,24 @@ export function ForEducatorsPage() {
               key={item}
               className="flex items-start gap-3 text-body-color font-raleway-medium text-sm sm:text-base"
             >
-              <span className="shrink-0 w-6 h-6 rounded-full bg-primary/15 flex items-center justify-center mt-0.5">
+              <span className="icon-glass shrink-0 w-6 h-6 rounded-full flex items-center justify-center mt-0.5">
                 <Check className="w-3.5 h-3.5 text-primary" />
               </span>
               {item}
             </li>
           ))}
         </ul>
-        <h3 className="text-base sm:text-lg font-raleway-bold text-primary text-center mb-4">
-          We are COPPA Compliant and Meet the National Standards for Personal Financial Education
-        </h3>
-        <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12">
-          <img
-            src={`${ASSETS}${encodeURIComponent("Coppa Compliant Moneyling Pig.png")}`}
-            alt="COPPA compliant"
-            className="h-24 sm:h-28 w-auto object-contain"
-          />
-          <img
-            src={`${ASSETS}${encodeURIComponent("Jumpstart Piggy.png")}`}
-            alt="Jumpstart Piggy"
-            className="h-24 sm:h-28 w-auto object-contain"
-          />
-        </div>
+      </section>
+
+      {/* LMS intro – green container with gold accent */}
+      <section className="rounded-2xl bg-primary text-white px-5 py-4 sm:px-6 sm:py-5 mb-10 text-center shadow-lg border-l-4 border-gold">
+        <h2 className="text-lg sm:text-xl font-raleway-bold text-white">
+          Moneyling Learning Management System (LMS)
+        </h2>
+        <div className="my-3 h-px bg-gold/50 max-w-xs mx-auto" aria-hidden />
+        <p className="text-sm sm:text-base font-raleway-medium text-white max-w-2xl mx-auto leading-relaxed">
+          Welcome to the Moneyling Learning Management System—your gateway to financial empowerment. This platform is designed to provide teachers, students, and community members with seamless access to a range of financial education courses, programs, and resources.
+        </p>
       </section>
 
       {/* Demo Middle School & Demo High School */}
@@ -209,16 +303,16 @@ export function ForEducatorsPage() {
           Try a sample lesson from our LMS. See how it works for your grade level.
         </p>
         <div className="grid sm:grid-cols-2 gap-6">
-          <div className="rounded-xl border-2 border-gold/50 bg-white p-5 shadow-sm">
+          <div className="rounded-xl border-2 border-gold/50 bg-white p-5 shadow-sm flex flex-col items-center text-center">
             <p className="text-sm font-raleway-medium text-body-color mb-3">Demo Middle School Course</p>
-            <CourseChip code={DEMO_MS.code} topic={DEMO_MS.topic} url={DEMO_MS.url} />
+            <CourseChip code={DEMO_MS.code} topic={DEMO_MS.topic} url={DEMO_MS.url} glass />
             <p className="mt-4 text-xs font-raleway-medium text-primary">
               Click above to try the demo →
             </p>
           </div>
-          <div className="rounded-xl border-2 border-navy/30 bg-white p-5 shadow-sm">
+          <div className="rounded-xl border-2 border-navy/30 bg-white p-5 shadow-sm flex flex-col items-center text-center">
             <p className="text-sm font-raleway-medium text-body-color mb-3">Demo High School Course</p>
-            <CourseChip code={DEMO_HS.code} topic={DEMO_HS.topic} url={DEMO_HS.url} />
+            <CourseChip code={DEMO_HS.code} topic={DEMO_HS.topic} url={DEMO_HS.url} glass />
             <p className="mt-4 text-xs font-raleway-medium text-primary">
               Click above to try the demo →
             </p>
@@ -230,16 +324,25 @@ export function ForEducatorsPage() {
       <section className="mb-12 rounded-2xl bg-mint/15 border border-mint/40 px-4 py-6 sm:px-6">
         <h2 className="text-xl font-raleway-bold text-primary mb-1">Middle School Offerings</h2>
         <div className="w-16 h-0.5 bg-primary-light rounded-full mb-4" aria-hidden />
+        <div className="flex justify-center mb-4">
+          <div className="card-glass rounded-xl p-2">
+            <img
+              src={`${ASSETS}${encodeURIComponent("2.png")}`}
+              alt="Middle school offerings"
+              className="max-w-[280px] sm:max-w-[320px] h-auto object-contain block"
+            />
+          </div>
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-start">
           {/* À la carte dropdown */}
-          <div className={`rounded-xl border-2 overflow-hidden bg-white transition-colors ${
-            msALaCarteOpen ? "border-primary border-l-4 border-l-gold" : "border-primary/30"
+          <div className={`rounded-xl border-2 border-primary/20 bg-white overflow-hidden transition-colors ${
+            msALaCarteOpen ? "ring-2 ring-gold" : ""
           }`}>
             <button
               type="button"
               onClick={openMsALaCarte}
               className={`w-full flex items-center justify-between gap-3 p-4 sm:p-5 text-left transition-colors ${
-                msALaCarteOpen ? "bg-primary/15" : "hover:bg-primary/5"
+                msALaCarteOpen ? "bg-primary/5" : "hover:bg-gray-50"
               }`}
               aria-expanded={msALaCarteOpen}
               aria-controls="ms-a-la-carte-content"
@@ -258,21 +361,31 @@ export function ForEducatorsPage() {
               />
             </button>
             {msALaCarteOpen && (
-              <div id="ms-a-la-carte-content" className="border-t border-primary/20 bg-white px-4 pb-4 sm:px-5 sm:pb-5 pt-2" role="region" aria-label="À la carte courses">
+              <div id="ms-a-la-carte-content" className="border-t border-primary/20 bg-gray-50/80 px-4 pb-4 sm:px-5 sm:pb-5 pt-2" role="region" aria-label="À la carte courses">
                 <div className="mb-4">
                   <p className="text-xs font-raleway-bold text-primary uppercase tracking-wider mb-2">Frameworks</p>
                   <div className="flex flex-wrap gap-2">
                     {MS_FRAMEWORKS.map((f) => (
-                      <a
-                        key={f.name}
-                        href={f.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="rounded-md bg-primary/10 px-2.5 py-1 text-sm font-raleway-medium text-primary hover:bg-primary/20 transition-colors inline-flex items-center gap-1"
-                      >
-                        {f.name}
-                        <ExternalLink className="w-3 h-3 opacity-70" aria-hidden />
-                      </a>
+                      <span key={f.name} className="inline-flex items-center gap-1.5">
+                        <a
+                          href={f.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn-glass-outline rounded-md px-2.5 py-1 text-sm font-raleway-medium inline-flex items-center gap-1"
+                        >
+                          {f.name}
+                          <ExternalLink className="w-3 h-3 opacity-70" aria-hidden />
+                        </a>
+                        <button
+                          type="button"
+                          onClick={() => addItem({ type: "course", code: f.name, name: f.name, url: f.url })}
+                          className={addToCartBtnClass}
+                          aria-label={`Add ${f.name} framework to cart`}
+                        >
+                          <ShoppingCart className="w-3.5 h-3.5" aria-hidden />
+                          Add to cart
+                        </button>
+                      </span>
                     ))}
                   </div>
                 </div>
@@ -285,7 +398,7 @@ export function ForEducatorsPage() {
                         rel="noopener noreferrer"
                         className="flex-1 px-4 py-3 flex items-center gap-3 font-raleway-medium text-body-color hover:bg-primary/5 transition-colors min-w-0"
                       >
-                        <span className="w-9 h-9 shrink-0 rounded-lg overflow-hidden bg-primary/5 flex items-center justify-center">
+                        <span className="icon-glass w-9 h-9 shrink-0 rounded-lg overflow-hidden flex items-center justify-center">
                           {c.image ? (
                             <img src={`${ASSETS}${encodeURIComponent(c.image)}`} alt="" className="w-full h-full object-cover" />
                           ) : (
@@ -314,14 +427,14 @@ export function ForEducatorsPage() {
             )}
           </div>
           {/* Full NS-8 program dropdown */}
-          <div className={`rounded-xl border-2 overflow-hidden bg-white transition-colors ${
-            msFullProgramOpen ? "border-primary border-l-4 border-l-navy" : "border-primary/30"
+          <div className={`rounded-xl border-2 border-primary/20 bg-white overflow-hidden transition-colors ${
+            msFullProgramOpen ? "ring-2 ring-navy" : ""
           }`}>
             <button
               type="button"
               onClick={openMsFullProgram}
               className={`w-full flex items-center justify-between gap-3 p-4 sm:p-5 text-left transition-colors ${
-                msFullProgramOpen ? "bg-primary/15" : "hover:bg-primary/5"
+                msFullProgramOpen ? "bg-primary/5" : "hover:bg-gray-50"
               }`}
               aria-expanded={msFullProgramOpen}
               aria-controls="ms-full-program-content"
@@ -340,7 +453,7 @@ export function ForEducatorsPage() {
               />
             </button>
             {msFullProgramOpen && (
-              <div id="ms-full-program-content" className="border-t border-primary/20 bg-white p-4 sm:p-5" role="region" aria-label="Full NS-8 program details">
+              <div id="ms-full-program-content" className="border-t border-primary/20 bg-gray-50/80 p-4 sm:p-5" role="region" aria-label="Full NS-8 program details">
                 <h3 className="text-xs font-raleway-bold text-primary uppercase tracking-wider mb-3">What the program includes</h3>
                 <ul className="space-y-2 text-sm text-body-color font-raleway-medium">
                   <li className="flex items-center gap-2">
@@ -375,10 +488,10 @@ export function ForEducatorsPage() {
         <h2 className="text-xl font-raleway-bold text-primary mb-1">High School Offerings</h2>
         <div className="w-16 h-0.5 bg-gold rounded-full mb-4 mx-auto" aria-hidden />
         <div className="flex justify-center mb-4">
-          <div className="rounded-xl border-2 border-primary/20 bg-white p-2 shadow-md">
+          <div className="card-glass rounded-xl p-2">
             <img
-              src={`${ASSETS}${encodeURIComponent("meet the characters.png")}`}
-              alt="Meet the characters"
+              src={`${ASSETS}${encodeURIComponent("1.png")}`}
+              alt="High school offerings"
               className="max-w-[280px] sm:max-w-[320px] h-auto object-contain block"
             />
           </div>
@@ -388,14 +501,14 @@ export function ForEducatorsPage() {
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-start">
           {/* À la carte dropdown */}
-          <div className={`rounded-xl border-2 overflow-hidden bg-white transition-colors ${
-            hsALaCarteOpen ? "border-primary border-l-4 border-l-teal" : "border-primary/30"
+          <div className={`rounded-xl border-2 border-primary/20 bg-white overflow-hidden transition-colors ${
+            hsALaCarteOpen ? "ring-2 ring-teal" : ""
           }`}>
             <button
               type="button"
               onClick={openHsALaCarte}
               className={`w-full flex items-center justify-between gap-3 p-4 sm:p-5 text-left transition-colors ${
-                hsALaCarteOpen ? "bg-primary/15" : "hover:bg-primary/5"
+                hsALaCarteOpen ? "bg-primary/5" : "hover:bg-gray-50"
               }`}
               aria-expanded={hsALaCarteOpen}
               aria-controls="hs-a-la-carte-content"
@@ -414,21 +527,31 @@ export function ForEducatorsPage() {
               />
             </button>
             {hsALaCarteOpen && (
-              <div id="hs-a-la-carte-content" className="border-t border-primary/20 bg-white px-4 pb-4 sm:px-5 sm:pb-5 pt-2" role="region" aria-label="À la carte courses">
+              <div id="hs-a-la-carte-content" className="border-t border-primary/20 bg-gray-50/80 px-4 pb-4 sm:px-5 sm:pb-5 pt-2" role="region" aria-label="À la carte courses">
                 <div className="mb-4">
                   <p className="text-xs font-raleway-bold text-primary uppercase tracking-wider mb-2">Frameworks</p>
                   <div className="flex flex-wrap gap-2">
                     {HS_FRAMEWORKS.map((f) => (
-                      <a
-                        key={f.name}
-                        href={f.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="rounded-md bg-primary/10 px-2.5 py-1 text-sm font-raleway-medium text-primary hover:bg-primary/20 transition-colors inline-flex items-center gap-1"
-                      >
-                        {f.name}
-                        <ExternalLink className="w-3 h-3 opacity-70" aria-hidden />
-                      </a>
+                      <span key={f.name} className="inline-flex items-center gap-1.5">
+                        <a
+                          href={f.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn-glass-outline rounded-md px-2.5 py-1 text-sm font-raleway-medium inline-flex items-center gap-1"
+                        >
+                          {f.name}
+                          <ExternalLink className="w-3 h-3 opacity-70" aria-hidden />
+                        </a>
+                        <button
+                          type="button"
+                          onClick={() => addItem({ type: "course", code: f.name, name: f.name, url: f.url })}
+                          className={addToCartBtnClass}
+                          aria-label={`Add ${f.name} framework to cart`}
+                        >
+                          <ShoppingCart className="w-3.5 h-3.5" aria-hidden />
+                          Add to cart
+                        </button>
+                      </span>
                     ))}
                   </div>
                 </div>
@@ -441,7 +564,7 @@ export function ForEducatorsPage() {
                         rel="noopener noreferrer"
                         className="flex-1 px-4 py-3 flex items-center gap-3 font-raleway-medium text-body-color hover:bg-primary/5 transition-colors min-w-0"
                       >
-                        <span className="w-9 h-9 shrink-0 rounded-lg overflow-hidden bg-primary/5 flex items-center justify-center">
+                        <span className="icon-glass w-9 h-9 shrink-0 rounded-lg overflow-hidden flex items-center justify-center">
                           {c.image ? (
                             <img src={`${ASSETS}${encodeURIComponent(c.image)}`} alt="" className="w-full h-full object-cover" />
                           ) : (
@@ -470,14 +593,14 @@ export function ForEducatorsPage() {
             )}
           </div>
           {/* Full NS-12 program dropdown */}
-          <div className={`rounded-xl border-2 overflow-hidden bg-white transition-colors ${
-            hsFullProgramOpen ? "border-primary border-l-4 border-l-coral" : "border-primary/30"
+          <div className={`rounded-xl border-2 border-primary/20 bg-white overflow-hidden transition-colors ${
+            hsFullProgramOpen ? "ring-2 ring-coral" : ""
           }`}>
             <button
               type="button"
               onClick={openHsFullProgram}
               className={`w-full flex items-center justify-between gap-3 p-4 sm:p-5 text-left transition-colors ${
-                hsFullProgramOpen ? "bg-primary/15" : "hover:bg-primary/5"
+                hsFullProgramOpen ? "bg-primary/5" : "hover:bg-gray-50"
               }`}
               aria-expanded={hsFullProgramOpen}
               aria-controls="hs-full-program-content"
@@ -496,7 +619,7 @@ export function ForEducatorsPage() {
               />
             </button>
             {hsFullProgramOpen && (
-              <div id="hs-full-program-content" className="border-t border-primary/20 bg-white p-4 sm:p-5" role="region" aria-label="Full NS-12 program details">
+              <div id="hs-full-program-content" className="border-t border-primary/20 bg-gray-50/80 p-4 sm:p-5" role="region" aria-label="Full NS-12 program details">
                 <h3 className="text-xs font-raleway-bold text-primary uppercase tracking-wider mb-3">What the program includes</h3>
                 <ul className="space-y-2 text-sm text-body-color font-raleway-medium mb-4">
                   <li className="flex items-center gap-2">
@@ -542,7 +665,7 @@ export function ForEducatorsPage() {
         <h2 className="text-xl font-raleway-bold text-primary mb-1">Higher Education (Young Adults)</h2>
         <div className="w-16 h-0.5 bg-teal rounded-full mb-4 mx-auto" aria-hidden />
         <div className="flex justify-center mb-4">
-          <div className="rounded-xl border-2 border-primary/20 bg-white p-2 shadow-md">
+          <div className="card-glass rounded-xl p-2">
             <img
               src={`${ASSETS}${encodeURIComponent("general users.png")}`}
               alt="Young adults – Dreamlife-Sim"
@@ -555,14 +678,14 @@ export function ForEducatorsPage() {
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-start">
           {/* À la carte dropdown */}
-          <div className={`rounded-xl border-2 overflow-hidden bg-white transition-colors ${
-            heALaCarteOpen ? "border-primary border-l-4 border-l-gold" : "border-primary/30"
+          <div className={`rounded-xl border-2 border-primary/20 bg-white overflow-hidden transition-colors ${
+            heALaCarteOpen ? "ring-2 ring-gold" : ""
           }`}>
             <button
               type="button"
               onClick={openHeALaCarte}
               className={`w-full flex items-center justify-between gap-3 p-4 sm:p-5 text-left transition-colors ${
-                heALaCarteOpen ? "bg-primary/15" : "hover:bg-primary/5"
+                heALaCarteOpen ? "bg-primary/5" : "hover:bg-gray-50"
               }`}
               aria-expanded={heALaCarteOpen}
               aria-controls="he-a-la-carte-content"
@@ -581,22 +704,32 @@ export function ForEducatorsPage() {
               />
             </button>
             {heALaCarteOpen && (
-              <div id="he-a-la-carte-content" className="border-t border-primary/20 bg-white px-4 pb-4 sm:px-5 sm:pb-5 pt-2" role="region" aria-label="À la carte courses">
+              <div id="he-a-la-carte-content" className="border-t border-primary/20 bg-gray-50/80 px-4 pb-4 sm:px-5 sm:pb-5 pt-2" role="region" aria-label="À la carte courses">
                 <div className="mb-4">
                   <p className="text-xs font-raleway-bold text-primary uppercase tracking-wider mb-2">Frameworks</p>
                   <div className="flex flex-wrap gap-2">
                     {HE_FRAMEWORKS.length > 0 ? (
                       HE_FRAMEWORKS.map((f) => (
-                        <a
-                          key={f.name}
-                          href={f.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="rounded-md bg-primary/10 px-2.5 py-1 text-sm font-raleway-medium text-primary hover:bg-primary/20 transition-colors inline-flex items-center gap-1"
-                        >
-                          {f.name}
-                          <ExternalLink className="w-3 h-3 opacity-70" aria-hidden />
-                        </a>
+                        <span key={f.name} className="inline-flex items-center gap-1.5">
+                          <a
+                            href={f.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="btn-glass-outline rounded-md px-2.5 py-1 text-sm font-raleway-medium inline-flex items-center gap-1"
+                          >
+                            {f.name}
+                            <ExternalLink className="w-3 h-3 opacity-70" aria-hidden />
+                          </a>
+                          <button
+                            type="button"
+                            onClick={() => addItem({ type: "course", code: f.name, name: f.name, url: f.url })}
+                            className={addToCartBtnClass}
+                            aria-label={`Add ${f.name} framework to cart`}
+                          >
+                            <ShoppingCart className="w-3.5 h-3.5" aria-hidden />
+                            Add to cart
+                          </button>
+                        </span>
                       ))
                     ) : (
                       <p className="text-sm text-body-color font-raleway-medium italic">Content coming soon.</p>
@@ -611,7 +744,7 @@ export function ForEducatorsPage() {
                         {HE_COURSES.map((c, i) => (
                           <li key={i}>
                             <div className="px-4 py-3 flex items-center gap-3 font-raleway-medium">
-                              <span className="w-9 h-9 shrink-0 rounded-lg overflow-hidden bg-primary/5 flex items-center justify-center">
+                              <span className="icon-glass w-9 h-9 shrink-0 rounded-lg overflow-hidden flex items-center justify-center">
                                 {c.image ? (
                                   <img src={`${ASSETS}${encodeURIComponent(c.image)}`} alt="" className="w-full h-full object-cover" />
                                 ) : (
@@ -663,14 +796,14 @@ export function ForEducatorsPage() {
             )}
           </div>
           {/* Full program dropdown */}
-          <div className={`rounded-xl border-2 overflow-hidden bg-white transition-colors ${
-            heFullProgramOpen ? "border-primary border-l-4 border-l-navy" : "border-primary/30"
+          <div className={`rounded-xl border-2 border-primary/20 bg-white overflow-hidden transition-colors ${
+            heFullProgramOpen ? "ring-2 ring-navy" : ""
           }`}>
             <button
               type="button"
               onClick={openHeFullProgram}
               className={`w-full flex items-center justify-between gap-3 p-4 sm:p-5 text-left transition-colors ${
-                heFullProgramOpen ? "bg-primary/15" : "hover:bg-primary/5"
+                heFullProgramOpen ? "bg-primary/5" : "hover:bg-gray-50"
               }`}
               aria-expanded={heFullProgramOpen}
               aria-controls="he-full-program-content"
@@ -689,12 +822,12 @@ export function ForEducatorsPage() {
               />
             </button>
             {heFullProgramOpen && (
-              <div id="he-full-program-content" className="border-t border-primary/20 bg-white p-4 sm:p-5" role="region" aria-label="Higher Education full program details">
+              <div id="he-full-program-content" className="border-t border-primary/20 bg-gray-50/80 p-4 sm:p-5" role="region" aria-label="Higher Education full program details">
                 <h3 className="text-xs font-raleway-bold text-primary uppercase tracking-wider mb-3">What the program includes</h3>
                 <ul className="space-y-0 overflow-hidden rounded-lg border border-brand-green/40 divide-y divide-brand-green/20">
                   <li>
                     <div className="px-4 py-3 flex items-center gap-3 font-raleway-medium">
-                      <span className="w-9 h-9 shrink-0 rounded-lg overflow-hidden bg-primary/5 flex items-center justify-center">
+                      <span className="icon-glass w-9 h-9 shrink-0 rounded-lg overflow-hidden flex items-center justify-center">
                         <img
                           src={`${ASSETS}${encodeURIComponent("Dreamlife-Sim Dashboard.png")}`}
                           alt=""
@@ -745,15 +878,15 @@ export function ForEducatorsPage() {
         </p>
         <ol className="max-w-2xl mx-auto space-y-4 text-left list-none counter-reset">
           <li className="flex gap-3">
-            <span className="shrink-0 w-8 h-8 rounded-full bg-primary text-white font-raleway-bold text-sm flex items-center justify-center">1</span>
+            <span className="icon-glass shrink-0 w-8 h-8 rounded-full font-raleway-bold text-sm flex items-center justify-center text-primary">1</span>
             <span className="text-body-color font-raleway-medium text-sm sm:text-base pt-0.5">Select your courses, program, or products.</span>
           </li>
           <li className="flex gap-3">
-            <span className="shrink-0 w-8 h-8 rounded-full bg-primary text-white font-raleway-bold text-sm flex items-center justify-center">2</span>
+            <span className="icon-glass shrink-0 w-8 h-8 rounded-full font-raleway-bold text-sm flex items-center justify-center text-primary">2</span>
             <span className="text-body-color font-raleway-medium text-sm sm:text-base pt-0.5">Check out or save/print your cart for your PO. Download our W-9.</span>
           </li>
           <li className="flex gap-3">
-            <span className="shrink-0 w-8 h-8 rounded-full bg-primary text-white font-raleway-bold text-sm flex items-center justify-center">3</span>
+            <span className="icon-glass shrink-0 w-8 h-8 rounded-full font-raleway-bold text-sm flex items-center justify-center text-primary">3</span>
             <span className="text-body-color font-raleway-medium text-sm sm:text-base pt-0.5">
               <a
                 href="https://lms.moneyling.org/register/"
@@ -767,24 +900,94 @@ export function ForEducatorsPage() {
             </span>
           </li>
           <li className="flex gap-3">
-            <span className="shrink-0 w-8 h-8 rounded-full bg-primary text-white font-raleway-bold text-sm flex items-center justify-center">4</span>
+            <span className="icon-glass shrink-0 w-8 h-8 rounded-full font-raleway-bold text-sm flex items-center justify-center text-primary">4</span>
             <span className="text-body-color font-raleway-medium text-sm sm:text-base pt-0.5">You’ll receive an email within 48 hours when you’re all set up!</span>
           </li>
         </ol>
         <div className="flex flex-wrap justify-center gap-4 mt-8">
           <Link
             to="/payment"
-            className="inline-flex items-center justify-center rounded-md text-sm font-medium bg-primary text-white hover:bg-primary/90 transition-colors px-6 py-3 border-2 border-gold/50 shadow-md"
+            className="btn-glass inline-flex items-center justify-center text-sm font-medium px-6 py-3"
           >
             My Cart
             <ArrowRight className="w-4 h-4 ml-2" />
           </Link>
           <Link
             to="/contact?audience=educator"
-            className="inline-flex items-center justify-center rounded-md text-sm font-medium border-2 border-primary text-primary hover:bg-primary/10 transition-colors px-6 py-3"
+            className="btn-glass-outline inline-flex items-center justify-center text-sm font-medium px-6 py-3"
           >
             Contact us
           </Link>
+        </div>
+      </section>
+
+      {/* FAQs – from https://moneyling.org/faqs (Moneyling Teacher FAQs) */}
+      <section className="mb-14">
+        <h2 className="text-2xl sm:text-3xl font-raleway-bold text-primary text-center mb-2">
+          Teacher FAQs
+        </h2>
+        <p className="text-body-color font-raleway-medium text-center mb-8 max-w-2xl mx-auto">
+          Questions about the School & Community program, the Moneyling LMS, and what teachers often want to know. Reach us at{" "}
+          <a href="mailto:info@moneyling.org" className="text-primary font-raleway-bold hover:underline">
+            info@moneyling.org
+          </a>{" "}
+          if you don’t find your answer here.
+        </p>
+        <div className="max-w-3xl mx-auto space-y-2">
+          {EDU_FAQ_ITEMS.map((item, index) => {
+            const isOpen = openFaqIndex === index;
+            return (
+              <div key={index} className="card-glass overflow-hidden shadow-sm">
+                <button
+                  type="button"
+                  onClick={() => setOpenFaqIndex(isOpen ? null : index)}
+                  className="w-full flex items-center justify-between gap-4 text-left px-4 py-4 sm:px-5 sm:py-5 hover:bg-white/20 transition-colors text-primary"
+                  aria-expanded={isOpen}
+                  aria-controls={`edu-faq-answer-${index}`}
+                  id={`edu-faq-question-${index}`}
+                >
+                  <span className="font-raleway-bold text-base sm:text-lg pr-2">
+                    {item.question}
+                  </span>
+                  <ChevronDown
+                    className={`w-5 h-5 shrink-0 text-primary transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+                    aria-hidden
+                  />
+                </button>
+                <div
+                  id={`edu-faq-answer-${index}`}
+                  role="region"
+                  aria-labelledby={`edu-faq-question-${index}`}
+                  className={`overflow-hidden transition-all duration-200 ${isOpen ? "max-h-[800px]" : "max-h-0"}`}
+                >
+                  <div className="px-4 pb-4 sm:px-5 sm:pb-5 pt-0 bg-white/70 backdrop-blur-sm rounded-b-xl border-t border-primary/10">
+                    <p className="text-body-color font-raleway-medium text-sm sm:text-base leading-relaxed">
+                      {item.answer}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* COPPA & National Standards – compliance and Jump$tart */}
+      <section className="mt-12 text-center">
+        <h3 className="text-base sm:text-lg font-raleway-bold text-primary mb-4">
+          We are COPPA Compliant and Meet the National Standards for Personal Financial Education
+        </h3>
+        <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12">
+          <img
+            src={`${ASSETS}${encodeURIComponent("Coppa Compliant Moneyling Pig.png")}`}
+            alt="COPPA compliant"
+            className="h-24 sm:h-28 w-auto object-contain"
+          />
+          <img
+            src={`${ASSETS}${encodeURIComponent("Jumpstart Piggy.png")}`}
+            alt="Jumpstart Piggy"
+            className="h-24 sm:h-28 w-auto object-contain"
+          />
         </div>
       </section>
 

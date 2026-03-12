@@ -193,7 +193,7 @@ export function AboutPage() {
         </p>
         <Link
           to="/contact"
-          className="inline-flex items-center justify-center rounded-md text-sm font-medium bg-primary text-white hover:bg-primary/90 transition-colors px-6 py-3 border-2 border-gold/50 shadow-md"
+          className="btn-glass inline-flex items-center justify-center text-sm font-medium px-6 py-3"
         >
           Contact us
         </Link>

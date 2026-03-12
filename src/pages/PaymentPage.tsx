@@ -1,16 +1,15 @@
 /**
- * Moneyling.org – My Cart. Supports PO workflow (save/print cart, W-9, return to complete) and pay by card.
+ * Moneyling.org – My Cart. Order summary; checkout and PO flows removed from this page.
  */
 
-import React, { useMemo, useEffect, useState } from "react";
+import React, { useMemo, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { loadStripe } from "@stripe/stripe-js";
-import { ArrowLeft, CheckCircle, Printer, FileDown, CreditCard } from "lucide-react";
-import { StripePaymentForm } from "../components/StripePaymentForm";
+import { ArrowLeft, CheckCircle, Printer, FileDown, Mail } from "lucide-react";
 import { useCart } from "../context/CartContext";
 
 const DEFAULT_AMOUNT_CENTS = 5000;
-const W9_URL = "/W-9.pdf"; // Place PDF in public folder, or set via env
+const W9_URL = `${import.meta.env.BASE_URL}W-9.pdf`;
+const PRICING_EMAIL = "info@moneyling.org";
 
 export function PaymentPage() {
   const [searchParams] = useSearchParams();
@@ -19,7 +18,6 @@ export function PaymentPage() {
   const amountParam = searchParams.get("amount");
   const success = searchParams.get("success") === "1";
   const { items, totalCents, clearCart } = useCart();
-  const [poFile, setPoFile] = useState<File | null>(null);
 
   const amountInCents = useMemo(() => {
     if (totalCents > 0) return totalCents;
@@ -43,26 +41,43 @@ export function PaymentPage() {
         ? "Financial Institution"
         : null;
 
-  const publishableKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
-  const stripePromise = useMemo(
-    () => (publishableKey ? loadStripe(publishableKey) : null),
-    [publishableKey]
-  );
-
-  const contactWithPO = "/contact?audience=educator&intent=po";
+  const emailCartHref = useMemo(() => {
+    const subject = encodeURIComponent("Pricing request – My Cart");
+    const bodyLines = [
+      "Please provide your details:",
+      "",
+      "Name:",
+      "Email:",
+      "School / District or Organization:",
+      "Phone (optional):",
+      "",
+      "---",
+      "Cart items I'm requesting pricing for:",
+      "",
+      items.length > 0
+        ? items.map((item) => `• ${item.code} — ${item.name}`).join("\n")
+        : "(Cart is empty – please let me know how to add items.)",
+      "",
+      "Thank you.",
+    ];
+    const body = encodeURIComponent(bodyLines.join("\n"));
+    return `mailto:${PRICING_EMAIL}?subject=${subject}&body=${body}`;
+  }, [items]);
 
   if (success) {
     return (
       <div className="max-w-2xl mx-auto px-4 py-10 sm:py-14">
-        <div className="rounded-2xl bg-primary/10 border-2 border-primary/20 p-8 sm:p-10 text-center">
-          <CheckCircle className="w-14 h-14 text-primary mx-auto mb-4" aria-hidden />
+        <div className="card-glass rounded-2xl p-8 sm:p-10 text-center">
+          <div className="icon-glass w-14 h-14 mx-auto mb-4">
+            <CheckCircle className="w-8 h-8 text-primary" aria-hidden />
+          </div>
           <h1 className="text-2xl font-raleway-bold text-primary mb-2">Payment received</h1>
           <p className="text-body-color font-raleway-medium mb-6">
             Thank you. You’ll receive a confirmation and receipt by email.
           </p>
           <Link
             to="/"
-            className="inline-flex items-center justify-center rounded-lg bg-primary text-white font-raleway-bold text-sm py-3 px-6 hover:bg-primary/90"
+            className="btn-glass inline-flex items-center justify-center text-sm font-raleway-bold py-3 px-6"
           >
             Back to home
           </Link>
@@ -92,11 +107,14 @@ export function PaymentPage() {
         </p>
       )}
       <p className="text-body-color font-raleway-medium mb-6">
-        Pay by card or use a Purchase Order. For PO: save/print your cart, download our W-9, get approval from your school, then return to complete your order.
+        Review your order below. Questions or ready to complete your order?{" "}
+        <Link to="/contact" className="text-primary font-raleway-bold hover:underline">
+          Contact us
+        </Link>.
       </p>
 
-      {/* Order summary */}
-      <section className="rounded-xl border border-primary/20 bg-white p-5 sm:p-6 mb-4 shadow-sm">
+      {/* Order summary — neutral (non-green) */}
+      <section className="rounded-xl border border-gray-200 bg-white p-5 sm:p-6 mb-4 shadow-sm">
         <h2 className="text-sm font-raleway-bold text-primary uppercase tracking-wider mb-3">
           Order summary
         </h2>
@@ -116,49 +134,28 @@ export function PaymentPage() {
                 ) : null}
               </div>
             ))}
-            <div className="border-t border-gray-light pt-3 mt-3 flex justify-between text-base font-raleway-bold text-primary">
-              <span>Total</span>
-              <span>${(amountInCents / 100).toFixed(2)}</span>
-            </div>
           </div>
         ) : (
           <div className="space-y-2 text-sm text-body-color font-raleway-medium">
             <p>Your cart is empty. Add programs or courses from the For Educators page.</p>
-            <div className="flex justify-between pt-2">
-              <span>Amount</span>
-              <span className="font-raleway-bold text-primary">${(amountInCents / 100).toFixed(2)}</span>
-            </div>
-            <div className="border-t border-gray-light pt-3 mt-3 flex justify-between text-base font-raleway-bold text-primary">
-              <span>Total</span>
-              <span>${(amountInCents / 100).toFixed(2)}</span>
-            </div>
           </div>
         )}
       </section>
 
-      {/* Check out or Purchase Order */}
-      <div className="flex flex-wrap gap-4 mb-6">
-        <a
-          href="#pay-by-card"
-          className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary text-white font-raleway-bold text-sm py-3 px-6 hover:bg-primary/90 transition-colors border-2 border-primary shadow-md"
-        >
-          <CreditCard className="w-4 h-4 shrink-0" aria-hidden />
-          Check out
-        </a>
-        <a
-          href="#purchase-order"
-          className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-primary bg-white text-primary font-raleway-bold text-sm py-3 px-6 hover:bg-primary/10 transition-colors"
-        >
-          Purchase Order
-        </a>
-      </div>
-
-      {/* Save/Print cart + Download W-9 — for PO workflow */}
+      {/* Save/Print cart + Download W-9 + Email for pricing */}
       <div className="flex flex-wrap gap-3 mb-8">
+        <a
+          href={emailCartHref}
+          className="btn-glass inline-flex items-center gap-2 px-4 py-2.5 text-sm font-raleway-bold"
+          aria-label="Email cart to Moneyling for pricing"
+        >
+          <Mail className="w-4 h-4 shrink-0" aria-hidden />
+          Email Cart to Moneyling for Pricing
+        </a>
         <button
           type="button"
           onClick={handlePrintCart}
-          className="inline-flex items-center gap-2 rounded-lg border-2 border-primary bg-white px-4 py-2.5 text-sm font-raleway-bold text-primary hover:bg-primary/10 transition-colors"
+          className="btn-glass inline-flex items-center gap-2 px-4 py-2.5 text-sm font-raleway-bold"
         >
           <Printer className="w-4 h-4 shrink-0" aria-hidden />
           Save / Print cart (for PO)
@@ -167,7 +164,7 @@ export function PaymentPage() {
           href={W9_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 rounded-lg border-2 border-primary bg-white px-4 py-2.5 text-sm font-raleway-bold text-primary hover:bg-primary/10 transition-colors"
+          className="btn-glass inline-flex items-center gap-2 px-4 py-2.5 text-sm font-raleway-bold"
         >
           <FileDown className="w-4 h-4 shrink-0" aria-hidden />
           Download Moneyling W-9
@@ -191,67 +188,7 @@ export function PaymentPage() {
         ) : (
           <p className="text-sm text-body-color">Cart is empty.</p>
         )}
-        <p className="mt-4 text-sm font-raleway-bold text-primary">Total: ${(amountInCents / 100).toFixed(2)}</p>
         <p className="mt-4 text-xs text-body-color">Moneyling · info@moneyling.org · moneyling.org</p>
-      </div>
-
-      {/* Two paths: PO vs Pay by card */}
-      <div className="space-y-8">
-        {/* Path 1: Purchase Order — upload box */}
-        <section id="purchase-order" className="rounded-xl border-2 border-primary/20 bg-primary/5 p-6 sm:p-8 scroll-mt-6">
-          <h2 className="text-lg font-raleway-bold text-primary mb-2 flex items-center gap-2">
-            Purchase Order
-          </h2>
-          <p className="text-sm text-body-color font-raleway-medium mb-4">
-            Upload your PO (PDF or image). You can also save/print your cart and download our W-9 above, then return here with your PO.
-          </p>
-          <div className="rounded-xl border-2 border-dashed border-primary/40 bg-white p-8 text-center mb-4">
-            <label htmlFor="po-upload" className="cursor-pointer block">
-              <input
-                id="po-upload"
-                type="file"
-                accept=".pdf,.png,.jpg,.jpeg"
-                className="sr-only"
-                aria-describedby="po-upload-hint"
-                onChange={(e) => setPoFile(e.target.files?.[0] ?? null)}
-              />
-              <span className="text-primary font-raleway-bold text-sm">
-                {poFile ? poFile.name : "Choose file"}
-              </span>
-              <span id="po-upload-hint" className="block text-body-color font-raleway-medium text-sm mt-1">
-                PDF, PNG, or JPG
-              </span>
-            </label>
-          </div>
-          <Link
-            to={contactWithPO}
-            className="inline-flex items-center justify-center rounded-lg bg-primary text-white font-raleway-bold text-sm py-3 px-6 hover:bg-primary/90 transition-colors"
-          >
-            Submit PO / Complete order
-          </Link>
-        </section>
-
-        {/* Path 2: Pay by card now (Stripe) */}
-        <section id="pay-by-card" className="rounded-xl border-2 border-primary/20 bg-primary/5 p-6 sm:p-8 scroll-mt-6">
-          <h2 className="text-lg font-raleway-bold text-primary mb-2 flex items-center gap-2">
-            <CreditCard className="w-5 h-5 shrink-0" aria-hidden />
-            Pay by card now
-          </h2>
-          {!publishableKey ? (
-            <div className="rounded-lg border-2 border-dashed border-amber-300 bg-amber-50 p-6 text-center">
-              <p className="text-sm text-amber-800 font-raleway-medium">
-                Stripe is not configured. Add <code className="bg-amber-100 px-1 rounded">VITE_STRIPE_PUBLISHABLE_KEY</code> to your environment.
-              </p>
-            </div>
-          ) : stripePromise ? (
-            <StripePaymentForm
-              stripePromise={stripePromise}
-              amountInCents={amountInCents}
-              audience={audience}
-              plan={plan}
-            />
-          ) : null}
-        </section>
       </div>
 
       <p className="text-center text-sm text-body-color font-raleway-medium mt-8">

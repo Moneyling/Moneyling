@@ -76,7 +76,7 @@ function PaymentFormInner({
       <button
         type="submit"
         disabled={!stripe || !elements || !ready || loading}
-        className="w-full rounded-lg bg-primary text-white font-raleway-bold text-sm py-3 px-4 hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        className="btn-glass w-full font-raleway-bold text-sm py-3 px-4 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {loading ? "Processing…" : `Pay ${amountLabel}`}
       </button>
@@ -151,7 +151,7 @@ export function StripePaymentForm({
 
   if (success) {
     return (
-      <div className="rounded-lg bg-primary/10 border border-primary/20 p-6 text-center">
+      <div className="card-glass rounded-lg p-6 text-center">
         <p className="text-primary font-raleway-bold">Payment submitted successfully.</p>
         <p className="text-sm text-body-color mt-1">You will be redirected to the confirmation page.</p>
       </div>

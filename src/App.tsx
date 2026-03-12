@@ -13,6 +13,7 @@ import { ForFinancialInstitutionsPage } from "./pages/ForFinancialInstitutionsPa
 import { AboutPage } from "./pages/AboutPage";
 import { ContactPage } from "./pages/ContactPage";
 import { PaymentPage } from "./pages/PaymentPage";
+import { IndividualsPage } from "./pages/IndividualsPage";
 
 const basename = import.meta.env.BASE_URL.replace(/\/$/, "") || "/";
 
@@ -31,6 +32,7 @@ const router = createBrowserRouter(
         { index: true, element: <HomePage /> },
         { path: "for-educators", element: <ForEducatorsPage /> },
         { path: "for-financial-institutions", element: <ForFinancialInstitutionsPage /> },
+        { path: "individuals", element: <IndividualsPage /> },
         { path: "about", element: <AboutPage /> },
         { path: "contact", element: <ContactPage /> },
         { path: "payment", element: <PaymentPage /> },
