@@ -13,6 +13,10 @@ permissions:
   pages: write
   id-token: write
 
+# Opt into Node.js 24 for actions (avoids deprecation warning)
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 # One Pages deployment at a time; do not cancel in-progress runs
 concurrency:
   group: "pages"
@@ -24,9 +28,6 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    env:
-      # Opt into Node.js 24 for actions (avoids Node 20 deprecation warning)
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
       - name: Checkout
@@ -40,16 +41,22 @@ jobs:
       - name: Install and build
         run: |
           npm install
+          export BASE_PATH="/${{ github.event.repository.name }}/"
           echo "BASE_PATH=$BASE_PATH"
           npm run build
         env:
-          # Project site is at *.github.io/Moneyling/ — assets must be under /Moneyling/
           BASE_PATH: /${{ github.event.repository.name }}/
 
       - name: Verify built asset paths
         run: |
           echo "=== dist/index.html (script/link tags) ==="
           grep -E 'src=|href=' dist/index.html || true
+          REPO_NAME="${{ github.event.repository.name }}"
+          if ! grep -q "/${REPO_NAME}/" dist/index.html; then
+            echo "::error::Built index.html does not contain /${REPO_NAME}/ in asset paths. Check BASE_PATH."
+            exit 1
+          fi
+          echo "OK: Asset paths use /${REPO_NAME}/"
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
