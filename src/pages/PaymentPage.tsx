@@ -10,6 +10,8 @@ import { useCart } from "../context/CartContext";
 const DEFAULT_AMOUNT_CENTS = 5000;
 const W9_URL = `${import.meta.env.BASE_URL}${encodeURIComponent("W-9 Moneyling.pdf")}`;
 const PRICING_EMAIL = "info@moneyling.org";
+const BUSINESS_PHONE = "1-844-777-6773";
+const LOGO_URL = `${import.meta.env.BASE_URL}moneyling-logo-text.png`;
 
 export function PaymentPage() {
   const [searchParams] = useSearchParams();
@@ -173,9 +175,19 @@ export function PaymentPage() {
 
       </div>
 
-      {/* Print-only content: cart summary for PO */}
+      {/* Print-only content: cart summary for PO (logo, contact, cart) */}
       <div className="hidden print:block p-6 print-only">
-        <h2 className="text-xl font-raleway-bold text-primary mb-2">Moneyling – Cart for Purchase Order</h2>
+        <div className="mb-6">
+          <img src={LOGO_URL} alt="Moneyling" className="h-10 w-auto mb-4" />
+          <p className="text-sm text-body-color">
+            <a href={`mailto:${PRICING_EMAIL}`} className="text-primary font-raleway-bold no-underline">{PRICING_EMAIL}</a>
+            {" · "}
+            <a href={`tel:${BUSINESS_PHONE.replace(/\D/g, "")}`} className="text-primary font-raleway-bold no-underline">{BUSINESS_PHONE}</a>
+            {" · "}
+            moneyling.org
+          </p>
+        </div>
+        <h2 className="text-xl font-raleway-bold text-primary mb-2">Cart for Purchase Order</h2>
         <p className="text-sm text-body-color mb-4">Date: {new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</p>
         {items.length > 0 ? (
           <ul className="list-disc list-inside text-sm text-body-color space-y-1">
@@ -188,7 +200,6 @@ export function PaymentPage() {
         ) : (
           <p className="text-sm text-body-color">Cart is empty.</p>
         )}
-        <p className="mt-4 text-xs text-body-color">Moneyling · info@moneyling.org · moneyling.org</p>
       </div>
 
       <p className="text-center text-sm text-body-color font-raleway-medium mt-8">

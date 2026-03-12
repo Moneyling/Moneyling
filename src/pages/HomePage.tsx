@@ -15,21 +15,21 @@ const INDIVIDUALS_IMG = `${BASE}general-users.png`;
 export function HomePage() {
   return (
     <div className="w-full max-w-6xl mx-auto px-1 sm:px-2 lg:px-3 py-12 sm:py-16">
-      {/* Path question – h1 first for SEO/accessibility */}
-      <section className="text-center mb-12 sm:mb-14">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-raleway-bold text-primary leading-tight">
-          Are you…
-        </h1>
-      </section>
-
       {/* What is Moneyling? */}
       <section className="text-center mb-12 sm:mb-14">
-        <h2 className="text-2xl sm:text-3xl font-raleway-bold text-primary mb-6">
+        <h1 className="text-2xl sm:text-3xl font-raleway-bold text-primary mb-6">
           What is Moneyling?
-        </h2>
+        </h1>
         <p className="text-body-color font-raleway-medium text-base sm:text-lg max-w-5xl mx-auto">
           Moneyling comes from Money + Lingo (linguistics) — decoding the language of money so it’s accessible and familiar. But “Ling” is also about action: we don’t stop at words — we give people the tools, frameworks, and weekly tasks to put financial knowledge into practice. <span className="text-primary font-raleway-bold">Learn it. Speak it. Live it. That’s Moneyling.</span>
         </p>
+      </section>
+
+      {/* Path question – Are you… */}
+      <section className="text-center mb-12 sm:mb-14">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-raleway-bold text-primary leading-tight">
+          Are you…
+        </h2>
       </section>
 
       {/* Three paths – Educator, Financial Institution, For Individuals. Title/image heights fixed so images align in row view. */}

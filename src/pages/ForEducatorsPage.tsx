@@ -295,31 +295,6 @@ export function ForEducatorsPage() {
         </p>
       </section>
 
-      {/* Demo Middle School & Demo High School */}
-      <section className="mb-12 rounded-2xl bg-primary/5 border border-primary/10 px-4 py-6 sm:px-6">
-        <h2 className="text-xl font-raleway-bold text-primary mb-2">Demo</h2>
-        <div className="w-12 h-0.5 bg-primary-light rounded-full mb-4" aria-hidden />
-        <p className="text-body-color font-raleway-medium text-sm sm:text-base mb-4">
-          Try a sample lesson from our LMS. See how it works for your grade level.
-        </p>
-        <div className="grid sm:grid-cols-2 gap-6">
-          <div className="rounded-xl border-2 border-gold/50 bg-white p-5 shadow-sm flex flex-col items-center text-center">
-            <p className="text-sm font-raleway-medium text-body-color mb-3">Demo Middle School Course</p>
-            <CourseChip code={DEMO_MS.code} topic={DEMO_MS.topic} url={DEMO_MS.url} glass />
-            <p className="mt-4 text-xs font-raleway-medium text-primary">
-              Click above to try the demo →
-            </p>
-          </div>
-          <div className="rounded-xl border-2 border-navy/30 bg-white p-5 shadow-sm flex flex-col items-center text-center">
-            <p className="text-sm font-raleway-medium text-body-color mb-3">Demo High School Course</p>
-            <CourseChip code={DEMO_HS.code} topic={DEMO_HS.topic} url={DEMO_HS.url} glass />
-            <p className="mt-4 text-xs font-raleway-medium text-primary">
-              Click above to try the demo →
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* Middle School Offerings – accordion: only the clicked container expands; the other stays its own height */}
       <section className="mb-12 rounded-2xl bg-mint/15 border border-mint/40 px-4 py-6 sm:px-6">
         <h2 className="text-xl font-raleway-bold text-primary mb-1">Middle School Offerings</h2>
@@ -650,6 +625,31 @@ export function ForEducatorsPage() {
                 </div>
               </div>
             )}
+          </div>
+        </div>
+      </section>
+
+      {/* Demo Middle School & Demo High School */}
+      <section className="mb-12 rounded-2xl bg-primary/5 border border-primary/10 px-4 py-6 sm:px-6">
+        <h2 className="text-xl font-raleway-bold text-primary mb-2">Demo</h2>
+        <div className="w-12 h-0.5 bg-primary-light rounded-full mb-4" aria-hidden />
+        <p className="text-body-color font-raleway-medium text-sm sm:text-base mb-4">
+          Try a sample lesson from our LMS. See how it works for your grade level.
+        </p>
+        <div className="grid sm:grid-cols-2 gap-6">
+          <div className="rounded-xl border-2 border-gold/50 bg-white p-5 shadow-sm flex flex-col items-center text-center">
+            <p className="text-sm font-raleway-medium text-body-color mb-3">Demo Middle School Course</p>
+            <CourseChip code={DEMO_MS.code} topic={DEMO_MS.topic} url={DEMO_MS.url} glass />
+            <p className="mt-4 text-xs font-raleway-medium text-primary">
+              Click above to try the demo →
+            </p>
+          </div>
+          <div className="rounded-xl border-2 border-navy/30 bg-white p-5 shadow-sm flex flex-col items-center text-center">
+            <p className="text-sm font-raleway-medium text-body-color mb-3">Demo High School Course</p>
+            <CourseChip code={DEMO_HS.code} topic={DEMO_HS.topic} url={DEMO_HS.url} glass />
+            <p className="mt-4 text-xs font-raleway-medium text-primary">
+              Click above to try the demo →
+            </p>
           </div>
         </div>
       </section>
