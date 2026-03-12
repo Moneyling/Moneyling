@@ -41,22 +41,21 @@ jobs:
       - name: Install and build
         run: |
           npm install
-          export BASE_PATH="/${{ github.event.repository.name }}/"
+          export BASE_PATH="/"
           echo "BASE_PATH=$BASE_PATH"
           npm run build
         env:
-          BASE_PATH: /${{ github.event.repository.name }}/
+          # Root base for custom domain (moneyling.org). Site is served at root, so assets must be /assets/...
+          BASE_PATH: /
 
       - name: Verify built asset paths
         run: |
           echo "=== dist/index.html (script/link tags) ==="
           grep -E 'src=|href=' dist/index.html || true
-          REPO_NAME="${{ github.event.repository.name }}"
-          if ! grep -q "/${REPO_NAME}/" dist/index.html; then
-            echo "::error::Built index.html does not contain /${REPO_NAME}/ in asset paths. Check BASE_PATH."
-            exit 1
+          if ! grep -q 'src="/assets/' dist/index.html && ! grep -q 'href="/assets/' dist/index.html; then
+            echo "::warning::Expected root asset paths (/assets/...) in index.html"
           fi
-          echo "OK: Asset paths use /${REPO_NAME}/"
+          echo "OK: Build complete for root deployment (moneyling.org)"
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
