@@ -39,8 +39,8 @@ jobs:
           npm install
           npm run build
         env:
-          # Use / for custom domain (moneyling.org) or user site. For project URL only (*.github.io/Moneyling/), use BASE_PATH: /${{ github.event.repository.name }}/
-          BASE_PATH: /
+          # Project site is at *.github.io/Moneyling/ — assets must be under /Moneyling/
+          BASE_PATH: /${{ github.event.repository.name }}/
 
       - name: Verify built asset paths
         run: |
