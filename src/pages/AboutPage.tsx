@@ -24,7 +24,7 @@ export function AboutPage() {
           <div className="flex flex-col sm:flex-row gap-6 items-start">
             <div className="shrink-0 w-40 h-40 sm:w-48 sm:h-48 rounded-2xl overflow-hidden border-2 border-primary/20 shadow-md">
               <img
-                src={`${ASSETS}${encodeURIComponent("Savanha Profile Pic.jpeg")}`}
+                src={`${ASSETS}savanha-profile-pic.jpeg`}
                 alt="Savanha Brubaker"
                 className="w-full h-full object-cover"
               />
@@ -46,7 +46,7 @@ export function AboutPage() {
           <div className="flex flex-col sm:flex-row gap-6 items-start">
             <div className="shrink-0 w-40 h-40 sm:w-48 sm:h-48 rounded-2xl overflow-hidden border-2 border-primary/20 shadow-md">
               <img
-                src={`${ASSETS}${encodeURIComponent("Jenn Profile Pic.jpeg")}`}
+                src={`${ASSETS}jenn-profile-pic.jpeg`}
                 alt="Jennifer Degenhardt"
                 className="w-full h-full object-cover"
               />
@@ -74,7 +74,7 @@ export function AboutPage() {
         <div className="flex flex-col sm:flex-row gap-6 items-center mb-6">
           <div className="shrink-0 w-full sm:w-64 rounded-xl overflow-hidden border-2 border-primary/20 shadow-md">
             <img
-              src={`${ASSETS}${encodeURIComponent("Savanha and Jen.png")}`}
+              src={`${ASSETS}savanha-and-jen.png`}
               alt="Savanha Brubaker and Jennifer Degenhardt"
               className="w-full h-auto object-cover"
             />
