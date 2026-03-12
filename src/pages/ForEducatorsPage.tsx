@@ -108,7 +108,7 @@ function CourseChip({
 }
 
 const addToCartBtnClass =
-  "btn-glass-outline shrink-0 inline-flex items-center gap-1.5 text-xs font-raleway-bold px-2.5 py-1.5";
+  "btn-glass-outline shrink-0 inline-flex items-center justify-center p-2 rounded-lg";
 
 // Teacher FAQs from https://moneyling.org/faqs (School & Community, LMS, and questions teachers often ask)
 const EDU_FAQ_ITEMS: { question: string; answer: string }[] = [
@@ -242,13 +242,13 @@ export function ForEducatorsPage() {
   };
 
   return (
-    <div className="w-full max-w-5xl mx-auto px-4 py-10 sm:py-14 bg-gradient-to-b from-cream/30 to-white">
+    <div className="w-full max-w-6xl mx-auto px-1 sm:px-2 lg:px-3 py-10 sm:py-14 bg-gradient-to-b from-cream/30 to-white">
       {/* Page title */}
       <section className="text-center mb-12">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-raleway-bold text-primary leading-tight mb-4">
           Personal Financial Education Curriculum
         </h1>
-        <p className="text-body-color font-raleway-medium text-base sm:text-lg max-w-3xl mx-auto">
+        <p className="text-body-color font-raleway-medium text-base sm:text-lg max-w-5xl mx-auto">
           We provide six core financial education topics (Earning, Saving, Spending, Investing, Credit, and Managing Risk). Over 172 chapters per level and 340 plus lessons.
         </p>
       </section>
@@ -259,10 +259,10 @@ export function ForEducatorsPage() {
           New state mandates. We’re here to make it easy.
         </h2>
         <div className="w-16 h-1 bg-gold rounded-full mx-auto mb-6" aria-hidden />
-        <p className="text-body-color font-raleway-medium text-center max-w-2xl mx-auto mb-8">
+        <p className="text-body-color font-raleway-medium text-center max-w-5xl mx-auto mb-8">
           More states require a personal financial education credit to graduate. Moneyling gives schools and educators ready-made, standards-aligned curriculum—so you can meet mandates without the scramble. All our courses and programs include complete National Standard lessons for the six core financial topics: earning income, saving, spending, credit, investing, and managing risk.
         </p>
-        <ul className="grid sm:grid-cols-2 gap-3 mb-6 max-w-3xl mx-auto list-none">
+        <ul className="grid sm:grid-cols-2 gap-3 mb-6 max-w-5xl mx-auto list-none">
           {[
             "Integrated calculators",
             "Decision tools",
@@ -290,7 +290,7 @@ export function ForEducatorsPage() {
           Moneyling Learning Management System (LMS)
         </h2>
         <div className="my-3 h-px bg-gold/50 max-w-xs mx-auto" aria-hidden />
-        <p className="text-sm sm:text-base font-raleway-medium text-white max-w-2xl mx-auto leading-relaxed">
+        <p className="text-sm sm:text-base font-raleway-medium text-white max-w-4xl mx-auto leading-relaxed">
           Welcome to the Moneyling Learning Management System—your gateway to financial empowerment. This platform is designed to provide teachers, students, and community members with seamless access to a range of financial education courses, programs, and resources.
         </p>
       </section>
@@ -382,8 +382,7 @@ export function ForEducatorsPage() {
                           className={addToCartBtnClass}
                           aria-label={`Add ${f.name} framework to cart`}
                         >
-                          <ShoppingCart className="w-3.5 h-3.5" aria-hidden />
-                          Add to cart
+                          <ShoppingCart className="w-4 h-4" aria-hidden />
                         </button>
                       </span>
                     ))}
@@ -417,8 +416,7 @@ export function ForEducatorsPage() {
                         className={addToCartBtnClass}
                         aria-label={`Add ${c.name} to cart`}
                       >
-                        <ShoppingCart className="w-3.5 h-3.5" aria-hidden />
-                        Add to cart
+                        <ShoppingCart className="w-4 h-4" aria-hidden />
                       </button>
                     </li>
                   ))}
@@ -474,8 +472,7 @@ export function ForEducatorsPage() {
                   onClick={() => addItem({ type: "program", code: "NS-8", name: "Full NS-8 program", id: "full-ns-8" })}
                   className={`mt-3 ${addToCartBtnClass}`}
                 >
-                  <ShoppingCart className="w-3.5 h-3.5" aria-hidden />
-                  Add to cart
+                  <ShoppingCart className="w-4 h-4" aria-hidden />
                 </button>
               </div>
             )}
@@ -496,7 +493,7 @@ export function ForEducatorsPage() {
             />
           </div>
         </div>
-        <p className="text-body-color font-raleway-medium text-sm sm:text-base text-center max-w-2xl mx-auto mb-6">
+        <p className="text-body-color font-raleway-medium text-sm sm:text-base text-center max-w-4xl mx-auto mb-6">
           These are our high school characters. They give context to financial concepts as they laugh, smile, joke, and cry through real-life situations that your students can relate to.
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-start">
@@ -548,8 +545,7 @@ export function ForEducatorsPage() {
                           className={addToCartBtnClass}
                           aria-label={`Add ${f.name} framework to cart`}
                         >
-                          <ShoppingCart className="w-3.5 h-3.5" aria-hidden />
-                          Add to cart
+                          <ShoppingCart className="w-4 h-4" aria-hidden />
                         </button>
                       </span>
                     ))}
@@ -583,8 +579,7 @@ export function ForEducatorsPage() {
                         className={addToCartBtnClass}
                         aria-label={`Add ${c.name} to cart`}
                       >
-                        <ShoppingCart className="w-3.5 h-3.5" aria-hidden />
-                        Add to cart
+                        <ShoppingCart className="w-4 h-4" aria-hidden />
                       </button>
                     </li>
                   ))}
@@ -650,8 +645,7 @@ export function ForEducatorsPage() {
                     onClick={() => addItem({ type: "program", code: "NS-12", name: "Full NS-12 program", id: "full-ns-12" })}
                     className={addToCartBtnClass}
                   >
-                    <ShoppingCart className="w-3.5 h-3.5" aria-hidden />
-                    Add to cart
+                    <ShoppingCart className="w-4 h-4" aria-hidden />
                   </button>
                 </div>
               </div>
@@ -673,7 +667,7 @@ export function ForEducatorsPage() {
             />
           </div>
         </div>
-        <p className="text-body-color font-raleway-medium text-sm sm:text-base text-center max-w-2xl mx-auto mb-6">
+        <p className="text-body-color font-raleway-medium text-sm sm:text-base text-center max-w-4xl mx-auto mb-6">
           Financial navigation for young adults: real-world context, micro-tasks, and lessons that meet students where they are.
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-start">
@@ -726,8 +720,7 @@ export function ForEducatorsPage() {
                             className={addToCartBtnClass}
                             aria-label={`Add ${f.name} framework to cart`}
                           >
-                            <ShoppingCart className="w-3.5 h-3.5" aria-hidden />
-                            Add to cart
+                            <ShoppingCart className="w-4 h-4" aria-hidden />
                           </button>
                         </span>
                       ))
@@ -771,8 +764,7 @@ export function ForEducatorsPage() {
                                 onClick={() => addItem({ type: "course", code: c.code, name: c.name, url: c.url })}
                                 className={addToCartBtnClass}
                               >
-                                <ShoppingCart className="w-3.5 h-3.5" aria-hidden />
-                                Add to cart
+                                <ShoppingCart className="w-4 h-4" aria-hidden />
                               </button>
                             </div>
                           </li>
@@ -854,8 +846,7 @@ export function ForEducatorsPage() {
                           onClick={() => addItem({ type: "program", code: "YA", name: "Higher Education full program (Dreamlife-Sim)", id: "full-he" })}
                           className={addToCartBtnClass}
                         >
-                          <ShoppingCart className="w-3.5 h-3.5" aria-hidden />
-                          Add to cart
+                          <ShoppingCart className="w-4 h-4" aria-hidden />
                         </button>
                       </div>
                     </div>
@@ -873,10 +864,10 @@ export function ForEducatorsPage() {
           Ready to bring Moneyling to your students?
         </h2>
         <div className="w-12 h-0.5 bg-gold rounded-full mx-auto mb-6" aria-hidden />
-        <p className="text-body-color font-raleway-medium text-sm sm:text-base text-center mb-6 max-w-xl mx-auto">
+        <p className="text-body-color font-raleway-medium text-sm sm:text-base text-center mb-6 max-w-3xl mx-auto">
           Follow these steps to get set up:
         </p>
-        <ol className="max-w-2xl mx-auto space-y-4 text-left list-none counter-reset">
+        <ol className="max-w-4xl mx-auto space-y-4 text-left list-none counter-reset">
           <li className="flex gap-3">
             <span className="icon-glass shrink-0 w-8 h-8 rounded-full font-raleway-bold text-sm flex items-center justify-center text-primary">1</span>
             <span className="text-body-color font-raleway-medium text-sm sm:text-base pt-0.5">Select your courses, program, or products.</span>
@@ -921,19 +912,19 @@ export function ForEducatorsPage() {
         </div>
       </section>
 
-      {/* FAQs – from https://moneyling.org/faqs (Moneyling Teacher FAQs) */}
-      <section className="mb-14">
+      {/* FAQs – from https://moneyling.org/faqs (Moneyling Educator FAQs) */}
+      <section className="pt-10 pb-10 mb-14">
         <h2 className="text-2xl sm:text-3xl font-raleway-bold text-primary text-center mb-2">
-          Teacher FAQs
+          Educator FAQs
         </h2>
-        <p className="text-body-color font-raleway-medium text-center mb-8 max-w-2xl mx-auto">
-          Questions about the School & Community program, the Moneyling LMS, and what teachers often want to know. Reach us at{" "}
+        <p className="text-body-color font-raleway-medium text-center mb-8 max-w-5xl mx-auto">
+          Questions about the School & Community program, the Moneyling LMS, and what educators often want to know. Reach us at{" "}
           <a href="mailto:info@moneyling.org" className="text-primary font-raleway-bold hover:underline">
             info@moneyling.org
           </a>{" "}
           if you don’t find your answer here.
         </p>
-        <div className="max-w-3xl mx-auto space-y-2">
+        <div className="max-w-5xl mx-auto space-y-2">
           {EDU_FAQ_ITEMS.map((item, index) => {
             const isOpen = openFaqIndex === index;
             return (
@@ -999,6 +990,14 @@ export function ForEducatorsPage() {
           className="text-primary font-raleway-bold underline hover:no-underline"
         >
           See our Financial Institution path
+        </Link>
+        {" · "}
+        An individual?{" "}
+        <Link
+          to="/individuals"
+          className="text-primary font-raleway-bold underline hover:no-underline"
+        >
+          See For Individuals
         </Link>
       </p>
     </div>

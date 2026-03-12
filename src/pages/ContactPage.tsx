@@ -26,7 +26,7 @@ export function ContactPage() {
         : null;
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-10 sm:py-14">
+    <div className="w-full max-w-2xl mx-auto px-1 sm:px-2 lg:px-3 py-10 sm:py-14">
       <h1 className="text-3xl sm:text-4xl font-raleway-bold text-primary mb-4">
         Get in touch
       </h1>
@@ -57,10 +57,10 @@ export function ContactPage() {
           Schedule a 30-min call on Calendly
         </a>
 
-        <div className="card-glass rounded-xl p-6 space-y-3 text-primary">
+        <div className="rounded-xl border border-gray-200 bg-gray-50 p-6 space-y-3 text-body-color">
           <a
             href={`mailto:${BUSINESS_EMAIL}`}
-            className="flex items-center gap-2 font-raleway-medium hover:opacity-90"
+            className="flex items-center gap-2 font-raleway-medium text-body-color hover:text-primary transition-colors"
           >
             <Mail className="w-4 h-4 shrink-0" aria-hidden />
             {BUSINESS_EMAIL}
@@ -68,7 +68,7 @@ export function ContactPage() {
           <span className="flex items-center gap-2 font-raleway-medium">
             <Phone className="w-4 h-4 shrink-0" aria-hidden />
             {BUSINESS_PHONE ? (
-              <a href={`tel:${BUSINESS_PHONE.replace(/\D/g, "")}`} className="hover:text-primary">
+              <a href={`tel:${BUSINESS_PHONE.replace(/\D/g, "")}`} className="text-body-color hover:text-primary transition-colors">
                 {BUSINESS_PHONE}
               </a>
             ) : (

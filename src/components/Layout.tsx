@@ -5,7 +5,9 @@
 
 import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { ShoppingCart } from "lucide-react";
 import { Analytics } from "./Analytics";
+import { useCart } from "../context/CartContext";
 
 const LOGO_SRC = `${import.meta.env.BASE_URL}moneyling-logo-text.png`;
 
@@ -51,6 +53,7 @@ const NAV_LINKS = [
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const location = useLocation();
+  const { count } = useCart();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -74,7 +77,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
     <div className="min-h-screen bg-gray-50 font-raleway flex flex-col">
       <Analytics />
       <header className="w-full bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between min-h-16">
+        <div className="max-w-6xl mx-auto px-1 sm:px-2 lg:px-3 py-4 flex items-center justify-between min-h-16">
           <Link to="/" className="flex items-center focus:outline-none focus:ring-2 focus:ring-primary/30 rounded">
             <img
               src={LOGO_SRC}
@@ -97,6 +100,18 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 {label}
               </Link>
             ))}
+            {count > 0 && (
+              <Link
+                to="/payment"
+                className="relative flex items-center justify-center w-10 h-10 rounded-lg text-body-color hover:text-primary hover:bg-primary/5 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-colors"
+                aria-label={`Cart with ${count} item${count === 1 ? "" : "s"}`}
+              >
+                <ShoppingCart className="w-5 h-5" aria-hidden />
+                <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] flex items-center justify-center rounded-full bg-primary text-white text-xs font-raleway-bold px-1">
+                  {count > 99 ? "99+" : count}
+                </span>
+              </Link>
+            )}
           </nav>
         </div>
       </header>
@@ -104,7 +119,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <main className="flex-1 w-full flex flex-col items-center">{children}</main>
 
       <footer className="border-t bg-white mt-auto">
-        <div className="max-w-6xl mx-auto px-4 py-6 text-xs text-gray-500 text-center">
+        <div className="max-w-6xl mx-auto px-1 sm:px-2 lg:px-3 py-6 text-xs text-gray-500 text-center">
           © {new Date().getFullYear()} Moneyling.org. All rights reserved.
         </div>
       </footer>

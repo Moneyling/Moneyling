@@ -10,11 +10,11 @@ import { ArrowRight } from "lucide-react";
 const BASE = import.meta.env.BASE_URL;
 const EDUCATOR_IMG = `${BASE}${encodeURIComponent("Educator Pic.png")}`;
 const FI_IMG = `${BASE}${encodeURIComponent("Financial Instittutions Pic.png")}`;
-const DREAMLIFE_SIM_IMG = `${BASE}${encodeURIComponent("Hands with phone  Dreamlife.png")}`;
+const INDIVIDUALS_IMG = `${BASE}${encodeURIComponent("general users.png")}`;
 
 export function HomePage() {
   return (
-    <div className="max-w-4xl mx-auto px-4 py-12 sm:py-16">
+    <div className="w-full max-w-6xl mx-auto px-1 sm:px-2 lg:px-3 py-12 sm:py-16">
       {/* Path question – h1 first for SEO/accessibility */}
       <section className="text-center mb-12 sm:mb-14">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-raleway-bold text-primary leading-tight">
@@ -27,7 +27,7 @@ export function HomePage() {
         <h2 className="text-2xl sm:text-3xl font-raleway-bold text-primary mb-6">
           What is Moneyling?
         </h2>
-        <p className="text-body-color font-raleway-medium text-base sm:text-lg max-w-2xl mx-auto">
+        <p className="text-body-color font-raleway-medium text-base sm:text-lg max-w-5xl mx-auto">
           Moneyling comes from Money + Lingo (linguistics) — decoding the language of money so it’s accessible and familiar. But “Ling” is also about action: we don’t stop at words — we give people the tools, frameworks, and weekly tasks to put financial knowledge into practice. <span className="text-primary font-raleway-bold">Learn it. Speak it. Live it. That’s Moneyling.</span>
         </p>
       </section>
@@ -85,7 +85,7 @@ export function HomePage() {
               … an Individual
             </h2>
             <div className="w-full h-44 rounded-2xl overflow-hidden bg-white/40 border border-white/50 mb-5 group-hover:bg-white/50 transition-colors shrink-0 flex items-center justify-center">
-              <img src={DREAMLIFE_SIM_IMG} alt="Individual – Dreamlife-Sim app on phone" className="w-full h-full object-contain" />
+              <img src={INDIVIDUALS_IMG} alt="Individuals using Dreamlife-Sim app on their phones" className="w-full h-full object-cover" />
             </div>
             <p className="text-body-color font-raleway-medium text-sm sm:text-base mb-6">
               Dreamlife-Sim: financial navigation, micro-tasks, and lessons to reach your goals.

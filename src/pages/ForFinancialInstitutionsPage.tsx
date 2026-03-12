@@ -108,7 +108,7 @@ export function ForFinancialInstitutionsPage() {
   }, []);
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-10 sm:py-14">
+    <div className="w-full max-w-6xl mx-auto px-1 sm:px-2 lg:px-3 py-10 sm:py-14">
       {/* Hero */}
       <section className="text-center mb-12 sm:mb-16">
         <p className="text-primary font-raleway-bold text-sm uppercase tracking-wider mb-3">
@@ -198,6 +198,17 @@ export function ForFinancialInstitutionsPage() {
               </p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Retirement projection during workshop */}
+      <section className="mb-14 flex justify-center">
+        <div className="w-full max-w-4xl rounded-2xl border border-primary/15 shadow-lg overflow-hidden">
+          <img
+            src={`${ASSETS}${encodeURIComponent("Retirement Projection during workshop.png")}`}
+            alt="Retirement projection during workshop"
+            className="w-full h-auto object-contain block"
+          />
         </div>
       </section>
 

@@ -9,7 +9,7 @@ const ASSETS = import.meta.env.BASE_URL;
 
 export function AboutPage() {
   return (
-    <div className="max-w-4xl mx-auto px-4 py-10 sm:py-14">
+    <div className="w-full max-w-5xl mx-auto px-1 sm:px-2 lg:px-3 py-10 sm:py-14">
       <h1 className="text-3xl sm:text-4xl font-raleway-bold text-primary mb-2 text-center">
         About Moneyling
       </h1>
@@ -70,7 +70,7 @@ export function AboutPage() {
       </section>
 
       {/* Winning Team */}
-      <section className="mb-14 rounded-2xl bg-primary/5 border border-primary/10 p-6 sm:p-8">
+      <section className="mb-14 rounded-2xl bg-primary/5 border border-primary/10 py-6 sm:py-8 px-3 sm:px-5">
         <div className="flex flex-col sm:flex-row gap-6 items-center mb-6">
           <div className="shrink-0 w-full sm:w-64 rounded-xl overflow-hidden border-2 border-primary/20 shadow-md">
             <img

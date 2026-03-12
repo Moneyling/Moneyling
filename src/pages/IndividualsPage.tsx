@@ -127,7 +127,7 @@ export function IndividualsPage() {
     <div className="w-full">
       {/* —— Hero: buttons above "For Individuals", then headline + image —— */}
       <section className="relative w-full bg-gradient-to-br from-primary/10 via-cream/50 to-mint/20 pt-8 sm:pt-12 pb-16 sm:pb-24">
-        <div className="max-w-4xl mx-auto px-4 text-center pb-16 sm:pb-20">
+        <div className="max-w-5xl mx-auto px-1 sm:px-2 lg:px-3 text-center pb-16 sm:pb-20">
           {/* Download buttons – responsive spacing, stack on mobile, row on sm+ */}
           <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4 sm:gap-6 md:gap-8 mb-5 px-2 sm:px-0">
             <a
@@ -165,9 +165,9 @@ export function IndividualsPage() {
           <p className="text-body-color font-raleway-medium text-lg sm:text-xl mt-6 max-w-2xl mx-auto">
             Dreamlife-Sim is financial navigation that helps you arrive at your destination through micro-tasks and lessons.
           </p>
-          {/* Image – slightly larger; container has extra bottom spacing below */}
+          {/* Image – large hero; container has extra bottom spacing below */}
           <div className="flex justify-center mt-8 sm:mt-10 -mb-16 sm:-mb-24 relative z-10">
-            <div className="rounded-2xl border-2 border-primary/20 bg-white p-2 shadow-xl max-w-[340px] sm:max-w-[400px]">
+            <div className="rounded-2xl border-2 border-primary/20 bg-white p-2 shadow-xl w-full max-w-[480px] sm:max-w-[560px] md:max-w-[640px] lg:max-w-[720px]">
               <img
                 src={`${ASSETS}${encodeURIComponent("general users.png")}`}
                 alt="Dreamlife-Sim – financial navigation for adults"
@@ -180,7 +180,7 @@ export function IndividualsPage() {
 
       {/* —— Problem → Solution: big, impactful, one span per word for animation —— */}
       <section className="w-full bg-white pt-24 sm:pt-32 pb-20 sm:pb-24">
-        <div className="max-w-3xl mx-auto px-4 text-center">
+        <div className="max-w-3xl mx-auto px-1 sm:px-2 lg:px-3 text-center">
           {PROBLEM_LINES.map((line, i) => (
             <WordsLine
               key={line}
@@ -242,7 +242,7 @@ export function IndividualsPage() {
 
       {/* —— And a lot more: grid of short tiles (Alinea style) —— */}
       <section className="w-full bg-white py-16 sm:py-20">
-        <div className="max-w-4xl mx-auto px-4">
+        <div className="max-w-5xl mx-auto px-1 sm:px-2 lg:px-3">
           <h2 className="text-2xl sm:text-3xl font-raleway-bold text-primary text-center mb-10">
             And a lot more…
           </h2>
@@ -263,7 +263,7 @@ export function IndividualsPage() {
 
       {/* —— Dashboard visual: scrolling carousel of app screens —— */}
       <section className="w-full bg-primary/5 py-16 sm:py-20">
-        <div className="max-w-4xl mx-auto px-4">
+        <div className="max-w-5xl mx-auto px-1 sm:px-2 lg:px-3">
           <h2 className="text-xl sm:text-2xl font-raleway-bold text-primary text-center mb-4">
             Your dashboard
           </h2>
@@ -414,7 +414,7 @@ export function IndividualsPage() {
 
       {/* —— Final CTA: full-bleed, one primary button —— */}
       <section className="w-full bg-gradient-to-br from-primary to-primary-light py-16 sm:py-20">
-        <div className="max-w-2xl mx-auto px-4 text-center">
+        <div className="max-w-2xl mx-auto px-1 sm:px-2 lg:px-3 text-center">
           <h2 className="text-2xl sm:text-3xl font-raleway-bold text-white mb-4">
             Try Dreamlife-Sim now
           </h2>
@@ -440,7 +440,7 @@ export function IndividualsPage() {
 
       {/* —— Get the app: glassy modern tech look —— */}
       <section className="w-full bg-gradient-to-b from-gray-50 to-white py-16 sm:py-20 border-t border-gray-100">
-        <div className="max-w-4xl mx-auto px-4">
+        <div className="max-w-5xl mx-auto px-1 sm:px-2 lg:px-3">
           <h2 className="text-2xl sm:text-3xl font-raleway-bold text-primary text-center mb-4">
             Get Dreamlife-Sim
           </h2>

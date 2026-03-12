@@ -8,7 +8,7 @@ import { ArrowLeft, CheckCircle, Printer, FileDown, Mail } from "lucide-react";
 import { useCart } from "../context/CartContext";
 
 const DEFAULT_AMOUNT_CENTS = 5000;
-const W9_URL = `${import.meta.env.BASE_URL}W-9.pdf`;
+const W9_URL = `${import.meta.env.BASE_URL}${encodeURIComponent("W-9 Moneyling.pdf")}`;
 const PRICING_EMAIL = "info@moneyling.org";
 
 export function PaymentPage() {
@@ -66,7 +66,7 @@ export function PaymentPage() {
 
   if (success) {
     return (
-      <div className="max-w-2xl mx-auto px-4 py-10 sm:py-14">
+      <div className="w-full max-w-2xl mx-auto px-1 sm:px-2 lg:px-3 py-10 sm:py-14">
         <div className="card-glass rounded-2xl p-8 sm:p-10 text-center">
           <div className="icon-glass w-14 h-14 mx-auto mb-4">
             <CheckCircle className="w-8 h-8 text-primary" aria-hidden />
@@ -87,7 +87,7 @@ export function PaymentPage() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-10 sm:py-14">
+    <div className="w-full max-w-2xl mx-auto px-1 sm:px-2 lg:px-3 py-10 sm:py-14">
       <div className="no-print">
       <Link
         to="/for-educators"
