@@ -39,9 +39,13 @@ jobs:
           npm install
           npm run build
         env:
-          # GitHub Pages project sites are served at /<repo-name>/ so assets must use that base.
-          # If you later use a custom domain at root (e.g. moneyling.org), set BASE_PATH to /
-          BASE_PATH: /${{ github.event.repository.name }}/
+          # Use / for custom domain (moneyling.org) or user site. For project URL only (*.github.io/Moneyling/), use BASE_PATH: /${{ github.event.repository.name }}/
+          BASE_PATH: /
+
+      - name: Verify built asset paths
+        run: |
+          echo "=== dist/index.html (script/link tags) ==="
+          grep -E 'src=|href=' dist/index.html || true
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
