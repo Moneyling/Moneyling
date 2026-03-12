@@ -39,7 +39,8 @@ jobs:
           npm install
           npm run build
         env:
-          BASE_PATH: /${{ github.event.repository.name }}/
+          # Use root base for custom domain (moneyling.org). For *.github.io/repo-name/ only, set BASE_PATH to /${{ github.event.repository.name }}/
+          BASE_PATH: /
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
