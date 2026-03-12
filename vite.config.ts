@@ -8,7 +8,18 @@ import fs from "fs";
 // Leave unset for root hosting (e.g. custom domain or user Pages).
 const base = process.env.BASE_PATH || "./";
 
-// Copy index.html to 404.html so GitHub Pages serves the SPA for all routes (direct links, refresh).
+// Inject a comment into index.html so we can verify which build is live (View Source).
+function injectBuildComment() {
+  return {
+    name: "inject-build-comment",
+    transformIndexHtml(html) {
+      const comment = `<!-- build base=${base} at ${new Date().toISOString()} -->`;
+      return html.replace("</head>", `${comment}\n  </head>`);
+    },
+  };
+}
+
+// Copy index.html to 404.html and add .nojekyll so GitHub Pages serves static files as-is.
 function copyIndexTo404() {
   return {
     name: "copy-index-to-404",
@@ -19,12 +30,13 @@ function copyIndexTo404() {
       if (fs.existsSync(indexPath)) {
         fs.copyFileSync(indexPath, notFoundPath);
       }
+      fs.writeFileSync(path.join(outDir, ".nojekyll"), "");
     },
   };
 }
 
 export default defineConfig({
-  plugins: [react(), copyIndexTo404()],
+  plugins: [react(), injectBuildComment(), copyIndexTo404()],
   base,
   server: {
     port: 5174,

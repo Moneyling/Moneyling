@@ -25,6 +25,8 @@ concurrency:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -41,21 +43,23 @@ jobs:
       - name: Install and build
         run: |
           npm install
-          export BASE_PATH="/"
-          echo "BASE_PATH=$BASE_PATH"
-          npm run build
+          echo "BASE_PATH=/ (forced for moneyling.org root)"
+          BASE_PATH="/" npm run build
         env:
           # Root base for custom domain (moneyling.org). Site is served at root, so assets must be /assets/...
           BASE_PATH: /
 
       - name: Verify built asset paths
         run: |
-          echo "=== dist/index.html (script/link tags) ==="
-          grep -E 'src=|href=' dist/index.html || true
-          if ! grep -q 'src="/assets/' dist/index.html && ! grep -q 'href="/assets/' dist/index.html; then
-            echo "::warning::Expected root asset paths (/assets/...) in index.html"
+          echo "=== dist structure ==="
+          ls -la dist/ && ls -la dist/assets/ || true
+          echo "=== dist/index.html (script/link and build comment) ==="
+          grep -E 'src=|href=|build base' dist/index.html || true
+          if ! grep -qE 'src="?/assets/|src="?\./assets/' dist/index.html; then
+            echo "::error::index.html must reference /assets/ or ./assets/ for deployment. Check BASE_PATH."
+            exit 1
           fi
-          echo "OK: Build complete for root deployment (moneyling.org)"
+          echo "OK: Build complete for moneyling.org"
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
