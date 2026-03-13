@@ -15,7 +15,9 @@ import { ContactPage } from "./pages/ContactPage";
 import { PaymentPage } from "./pages/PaymentPage";
 import { IndividualsPage } from "./pages/IndividualsPage";
 
-const basename = import.meta.env.BASE_URL.replace(/\/$/, "") || "/";
+// Support both project URL (e.g. /Moneyling/) and root (custom domain or Azure)
+const pathname = typeof window !== "undefined" ? window.location.pathname : "";
+const basename = pathname.startsWith("/Moneyling") ? "/Moneyling" : "";
 
 const router = createBrowserRouter(
   [
