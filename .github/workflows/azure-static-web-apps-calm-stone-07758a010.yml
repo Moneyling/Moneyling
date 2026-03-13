@@ -31,8 +31,6 @@ jobs:
           api_location: ""
           output_location: "dist"
           app_build_command: "npm install && npm run build:prod"
-        env:
-          BASE_PATH: "/"
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'

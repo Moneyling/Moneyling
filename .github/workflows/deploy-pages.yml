@@ -44,9 +44,6 @@ jobs:
         run: |
           npm install
           npm run build:prod
-        env:
-          # build:prod sets BASE_PATH=/ in Node so asset paths are /assets/... (no blank screen at root)
-          BASE_PATH: /
 
       - name: Verify built asset paths
         run: |
@@ -54,11 +51,11 @@ jobs:
           ls -la dist/ && ls -la dist/assets/ || true
           echo "=== dist/index.html (script/link and build comment) ==="
           grep -E 'src=|href=|build base' dist/index.html || true
-          if ! grep -q '/assets/' dist/index.html; then
-            echo "::error::index.html must contain /assets/ for root deployment. Use build:prod."
+          if ! grep -qE '"/assets/|\./assets/' dist/index.html; then
+            echo "::error::index.html must reference assets (./assets/ or /assets/)."
             exit 1
           fi
-          echo "OK: Build uses /assets/ for moneyling.org"
+          echo "OK: Build complete (relative base works at both project URL and custom domain)"
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

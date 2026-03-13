@@ -14,8 +14,6 @@ on:
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
-    env:
-      BASE_PATH: "/"
     steps:
       - uses: actions/checkout@v4
         with:
@@ -30,5 +28,3 @@ jobs:
           app_location: "/"
           output_location: "dist"
           app_build_command: "npm install && npm run build:prod"
-        env:
-          BASE_PATH: "/"
