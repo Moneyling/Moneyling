@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/03E.png" />
+    <link rel="icon" type="image/png" href="/512x512%20Moneyling%20Favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Moneyling delivers story-based financial literacy for schools and community programs, and Dreamlife-Sim for individuals and financial institutions. Standards-aligned curriculum, LMS, and measurable outcomes." />
     <title>Moneyling.org – Financial Education & Community Outreach</title>
@@ -12,6 +12,17 @@
   </head>
   <body>
     <div id="root"></div>
+    <div id="load-fallback" style="display:none;max-width:36rem;margin:2rem auto;padding:1.5rem;font-family:system-ui,sans-serif;text-align:center;">
+      <h1 style="font-size:1.5rem;margin-bottom:0.5rem;">Moneyling.org</h1>
+      <p style="color:#555;">This page is taking longer than usual to load. Our hosting may be updating.</p>
+      <p><a href="">Refresh the page</a> or try again in a few minutes. If it keeps happening, contact <a href="mailto:info@moneyling.org">info@moneyling.org</a>.</p>
+    </div>
+    <script>
+      setTimeout(function(){
+        var root = document.getElementById('root');
+        if (root && !root.innerHTML.trim()) document.getElementById('load-fallback').style.display = 'block';
+      }, 4000);
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

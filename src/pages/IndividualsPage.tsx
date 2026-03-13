@@ -4,14 +4,15 @@
  * Full-bleed alternating sections, punchy copy, one primary CTA.
  */
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { MapPin, BookOpen, Target, ExternalLink, ChevronDown, ChevronLeft, ChevronRight, Play } from "lucide-react";
+import { MapPin, BookOpen, Target, ExternalLink, ChevronDown, Play } from "lucide-react";
+import { Carousel } from "@/components/Carousel";
 
 const DREAMLIFE_SIM_URL = "https://dreamlife.moneyling.org";
 const ASSETS = import.meta.env.BASE_URL;
 const GOOGLE_PLAY_URL = "https://play.google.com/store/apps/details?id=com.moneyling.dreamlife";
-const QR_CODE_URL = `https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(DREAMLIFE_SIM_URL)}`;
+const QR_CODE_IMG = `${ASSETS}${encodeURIComponent("DreamlifeSim_QRCODE.png")}`;
 
 const DASHBOARD_CAROUSEL_SLIDES = [
   { src: "03E.png", alt: "Dreamlife-Sim app" },
@@ -88,40 +89,6 @@ const FAQ_ITEMS: { question: string; answer: string }[] = [
 
 export function IndividualsPage() {
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
-  const [dashboardSlide, setDashboardSlide] = useState(0);
-  const dashboardCarouselRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = dashboardCarouselRef.current;
-    if (!el) return;
-    const onScroll = () => {
-      const first = el.firstElementChild as HTMLElement | null;
-      if (!first) return;
-      const mr = parseInt(getComputedStyle(first).marginRight, 10) || 0;
-      const step = first.offsetWidth + mr;
-      const index = Math.round(el.scrollLeft / step);
-      setDashboardSlide(Math.min(Math.max(0, index), DASHBOARD_CAROUSEL_SLIDES.length - 1));
-    };
-    el.addEventListener("scroll", onScroll);
-    return () => el.removeEventListener("scroll", onScroll);
-  }, []);
-
-  // Auto-advance carousel every 4 seconds
-  useEffect(() => {
-    const el = dashboardCarouselRef.current;
-    if (!el) return;
-    const len = DASHBOARD_CAROUSEL_SLIDES.length;
-    const interval = setInterval(() => {
-      setDashboardSlide((prev) => {
-        const next = (prev + 1) % len;
-        const first = el.firstElementChild as HTMLElement | null;
-        const step = first ? first.offsetWidth + (parseInt(getComputedStyle(first).marginRight, 10) || 0) : el.offsetWidth;
-        el.scrollTo({ left: next * step, behavior: "smooth" });
-        return next;
-      });
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <div className="w-full">
@@ -150,9 +117,15 @@ export function IndividualsPage() {
               <span>Coming soon</span>
             </div>
             <div className="flex flex-col items-center gap-1.5 shrink-0">
-              <div className="card-glass w-[100px] h-[100px] flex items-center justify-center p-2">
-                <img src={QR_CODE_URL} alt="" width={84} height={84} className="rounded-lg w-[84px] h-[84px] object-contain" />
-              </div>
+              <a
+                href={DREAMLIFE_SIM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="card-glass w-[100px] h-[100px] flex items-center justify-center p-2 hover:opacity-90 transition-opacity"
+                aria-label="Open Dreamlife-Sim web app"
+              >
+                <img src={QR_CODE_IMG} alt="DreamlifeSim QR code" width={84} height={84} className="rounded-lg w-[84px] h-[84px] object-contain" />
+              </a>
               <span className="text-xs font-raleway-medium text-primary/90">Scan or open</span>
             </div>
           </div>
@@ -261,102 +234,37 @@ export function IndividualsPage() {
         </div>
       </section>
 
-      {/* —— Dashboard visual: scrolling carousel of app screens —— */}
+      {/* —— Dashboard visual: carousel of app screens —— */}
       <section className="w-full bg-primary/5 py-16 sm:py-20">
         <div className="max-w-5xl mx-auto px-1 sm:px-2 lg:px-3">
           <h2 className="text-xl sm:text-2xl font-raleway-bold text-primary text-center mb-4">
             Your dashboard
           </h2>
-          <p className="text-body-color font-raleway-medium text-center max-w-xl mx-auto mb-8">
-            Goals, tasks, and progress in one place. Dreamlife-Sim is there when you are.
+          <p className="text-body-color font-raleway-medium text-center max-w-2xl mx-auto mb-4">
+            Seeing your dream life as an image is powerful—it makes it feel real and achievable. Your dashboard puts that vision in one place, then uses Weekly Tasks to guide your personal journey so you can navigate step by step and make that life happen.
           </p>
-          <div className="relative">
-            <div
-              data-dashboard-carousel
-              ref={dashboardCarouselRef}
-              className="flex gap-0 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2 -mx-2 px-2"
-              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-            >
-              {DASHBOARD_CAROUSEL_SLIDES.map((slide, index) => (
-                <div
-                  key={slide.src}
-                  className={`flex-none w-[320px] sm:w-[360px] min-w-[320px] sm:min-w-[360px] snap-center -mr-20 sm:-mr-[6rem] last:mr-0 relative transition-all duration-300 origin-center ${
-                    index === dashboardSlide ? "z-20 opacity-100 scale-110" : "z-0 opacity-45 scale-90"
-                  }`}
-                >
-                  <div className="card-glass rounded-2xl p-3 overflow-hidden flex flex-col h-[460px] sm:h-[520px]">
-                    <div className="flex-1 min-h-0 flex items-center justify-center">
-                      <img
-                        src={`${ASSETS}${encodeURIComponent(slide.src)}`}
-                        alt={slide.alt}
-                        className="max-w-full max-h-full object-contain block"
-                      />
-                    </div>
-                  </div>
+          <p className="text-body-color font-raleway-medium text-center max-w-2xl mx-auto mb-8">
+            Goals, progress, and next steps are always there when you are. Dreamlife-Sim turns the dream into a path you can walk.
+          </p>
+          <Carousel
+            autoplayDelay={4000}
+            variant="default"
+            slideSize="min(320px, 85vw)"
+            showDots
+            showArrows
+          >
+            {DASHBOARD_CAROUSEL_SLIDES.map((slide) => (
+              <div key={slide.src} className="card-glass rounded-2xl p-3 overflow-hidden flex flex-col h-[460px] sm:h-[520px]">
+                <div className="flex-1 min-h-0 flex items-center justify-center">
+                  <img
+                    src={`${ASSETS}${encodeURIComponent(slide.src)}`}
+                    alt={slide.alt}
+                    className="max-w-full max-h-full object-contain block"
+                  />
                 </div>
-              ))}
-            </div>
-            <style>{`
-              .overflow-x-auto::-webkit-scrollbar { display: none; }
-            `}</style>
-            <div className="flex justify-center gap-2 mt-4">
-              {DASHBOARD_CAROUSEL_SLIDES.map((_, index) => (
-                <button
-                  key={index}
-                  type="button"
-                  onClick={() => {
-                    const container = dashboardCarouselRef.current;
-                    if (container) {
-                      const first = container.firstElementChild as HTMLElement | null;
-                      const step = first ? first.offsetWidth + (parseInt(getComputedStyle(first).marginRight, 10) || 0) : container.offsetWidth;
-                      container.scrollTo({ left: index * step, behavior: "smooth" });
-                      setDashboardSlide(index);
-                    }
-                  }}
-                  className={`w-2.5 h-2.5 rounded-full transition-colors ${
-                    dashboardSlide === index ? "bg-primary" : "bg-primary/30 hover:bg-primary/50"
-                  }`}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
-            </div>
-            <div className="flex justify-center gap-2 mt-2">
-              <button
-                type="button"
-                onClick={() => {
-                  const container = dashboardCarouselRef.current;
-                  if (container) {
-                    const first = container.firstElementChild as HTMLElement | null;
-                    const step = first ? first.offsetWidth + (parseInt(getComputedStyle(first).marginRight, 10) || 0) : container.offsetWidth;
-                    const next = Math.max(0, dashboardSlide - 1);
-                    container.scrollTo({ left: next * step, behavior: "smooth" });
-                    setDashboardSlide(next);
-                  }
-                }}
-                className="btn-glass-outline p-2 rounded-full"
-                aria-label="Previous slide"
-              >
-                <ChevronLeft className="w-5 h-5 text-primary" aria-hidden />
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  const container = dashboardCarouselRef.current;
-                  if (container) {
-                    const first = container.firstElementChild as HTMLElement | null;
-                    const step = first ? first.offsetWidth + (parseInt(getComputedStyle(first).marginRight, 10) || 0) : container.offsetWidth;
-                    const next = Math.min(DASHBOARD_CAROUSEL_SLIDES.length - 1, dashboardSlide + 1);
-                    container.scrollTo({ left: next * step, behavior: "smooth" });
-                    setDashboardSlide(next);
-                  }
-                }}
-                className="btn-glass-outline p-2 rounded-full"
-                aria-label="Next slide"
-              >
-                <ChevronRight className="w-5 h-5 text-primary" aria-hidden />
-              </button>
-            </div>
-          </div>
+              </div>
+            ))}
+          </Carousel>
         </div>
       </section>
 
@@ -471,11 +379,17 @@ export function IndividualsPage() {
               <span>Coming soon</span>
             </div>
 
-            {/* Web app – QR in glassy arrow-style card */}
+            {/* Web app – QR in glassy arrow-style card (clickable to open webapp) */}
             <div className="flex flex-col items-center gap-3 shrink-0">
-              <div className="card-glass p-2.5 w-[120px] h-[120px] flex items-center justify-center">
-                <img src={QR_CODE_URL} alt="" width={104} height={104} className="rounded-lg w-[104px] h-[104px] object-contain" />
-              </div>
+              <a
+                href={DREAMLIFE_SIM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="card-glass p-2.5 w-[120px] h-[120px] flex items-center justify-center hover:opacity-90 transition-opacity"
+                aria-label="Open Dreamlife-Sim web app"
+              >
+                <img src={QR_CODE_IMG} alt="DreamlifeSim QR code" width={104} height={104} className="rounded-lg w-[104px] h-[104px] object-contain" />
+              </a>
               <div className="text-center">
                 <p className="text-xs font-raleway-bold text-primary uppercase tracking-wider mb-1">
                   Scan or open

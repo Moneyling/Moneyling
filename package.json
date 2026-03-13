@@ -7,11 +7,19 @@
   "scripts": {
     "dev": "vite --open",
     "build": "vite build",
-    "preview": "vite preview"
+    "build:prod": "node scripts/build-production.mjs",
+    "preview": "vite preview",
+    "deploy:azure": "node scripts/deploy-azure.mjs",
+    "swa:dist": "swa start ./dist",
+    "swa": "swa start ./dist",
+    "swa:dev": "swa start http://localhost:5174 --run \"npm run dev\"",
+    "swa:build": "node scripts/build-production.mjs && swa start ./dist"
   },
   "dependencies": {
     "@stripe/react-stripe-js": "^2.4.0",
     "@stripe/stripe-js": "^4.8.0",
+    "embla-carousel-autoplay": "^8.6.0",
+    "embla-carousel-react": "^8.6.0",
     "lucide-react": "^0.462.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

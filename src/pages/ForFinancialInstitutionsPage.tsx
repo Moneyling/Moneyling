@@ -2,7 +2,7 @@
  * Moneyling.org – For Financial Institutions. Funnel page: benefits → how it works → carousel → CTA.
  */
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Check,
@@ -10,10 +10,9 @@ import {
   Link2,
   Users,
   ArrowRight,
-  ChevronLeft,
-  ChevronRight,
   ChevronDown,
 } from "lucide-react";
+import { Carousel } from "@/components/Carousel";
 
 const ASSETS = import.meta.env.BASE_URL;
 
@@ -72,40 +71,7 @@ const FI_CAROUSEL_SLIDES = [
 ];
 
 export function ForFinancialInstitutionsPage() {
-  const [fiCarouselSlide, setFiCarouselSlide] = useState(0);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
-  const fiCarouselRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = fiCarouselRef.current;
-    if (!el) return;
-    const onScroll = () => {
-      const first = el.firstElementChild as HTMLElement | null;
-      if (!first) return;
-      const mr = parseInt(getComputedStyle(first).marginRight, 10) || 0;
-      const step = first.offsetWidth + mr;
-      const index = Math.round(el.scrollLeft / step);
-      setFiCarouselSlide(Math.min(Math.max(0, index), FI_CAROUSEL_SLIDES.length - 1));
-    };
-    el.addEventListener("scroll", onScroll);
-    return () => el.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
-    const el = fiCarouselRef.current;
-    if (!el) return;
-    const len = FI_CAROUSEL_SLIDES.length;
-    const interval = setInterval(() => {
-      setFiCarouselSlide((prev) => {
-        const next = (prev + 1) % len;
-        const first = el.firstElementChild as HTMLElement | null;
-        const step = first ? first.offsetWidth + (parseInt(getComputedStyle(first).marginRight, 10) || 0) : el.offsetWidth;
-        el.scrollTo({ left: next * step, behavior: "smooth" });
-        return next;
-      });
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <div className="w-full max-w-6xl mx-auto px-1 sm:px-2 lg:px-3 py-10 sm:py-14">
@@ -212,103 +178,29 @@ export function ForFinancialInstitutionsPage() {
         </div>
       </section>
 
-      {/* Carousel – rectangular cards, center slide much larger */}
+      {/* Carousel – rectangular cards, center slide emphasized */}
       <section className="mb-14">
-        <div className="relative">
-          <div
-            ref={fiCarouselRef}
-            className="flex gap-0 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2"
-            style={{
-              scrollbarWidth: "none",
-              msOverflowStyle: "none",
-              scrollPaddingInline: "50%",
-            }}
-          >
-            {FI_CAROUSEL_SLIDES.map((slide, index) => {
-              const isFocused = index === fiCarouselSlide;
-              return (
-                <div
-                  key={slide.src}
-                  className={`flex-none w-[280px] sm:w-[300px] min-w-[280px] sm:min-w-[300px] snap-center -mr-12 sm:-mr-14 last:mr-0 relative transition-all duration-300 origin-center ${
-                    isFocused ? "z-20" : "z-0"
-                  }`}
-                  style={{
-                    transform: isFocused ? "scale(1.5)" : "scale(0.78)",
-                    opacity: isFocused ? 1 : 0.48,
-                  }}
-                >
-                  <div className="rounded-xl border-2 border-primary/20 bg-white overflow-hidden flex flex-col shadow-lg p-2 sm:p-3 h-[400px] sm:h-[460px]">
-                    <div className="flex-1 min-h-0 flex items-center justify-center">
-                      <img
-                        src={`${ASSETS}${encodeURIComponent(slide.src)}`}
-                        alt={slide.alt}
-                        className="max-w-full max-h-full object-contain block"
-                      />
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-          <style>{`.overflow-x-auto::-webkit-scrollbar { display: none; }`}</style>
-          <div className="flex justify-center gap-2 mt-4">
-            {FI_CAROUSEL_SLIDES.map((_, index) => (
-              <button
-                key={index}
-                type="button"
-onClick={() => {
-                    const container = fiCarouselRef.current;
-                    if (container) {
-                      const first = container.firstElementChild as HTMLElement | null;
-                      const step = first ? first.offsetWidth + (parseInt(getComputedStyle(first).marginRight, 10) || 0) : container.offsetWidth;
-                      container.scrollTo({ left: index * step, behavior: "smooth" });
-                      setFiCarouselSlide(index);
-                    }
-                  }}
-                className={`w-2.5 h-2.5 rounded-full transition-colors ${
-                  fiCarouselSlide === index ? "bg-primary" : "bg-primary/30 hover:bg-primary/50"
-                }`}
-                aria-label={`Go to slide ${index + 1}`}
-              />
-            ))}
-          </div>
-          <div className="flex justify-center gap-2 mt-2">
-            <button
-              type="button"
-              onClick={() => {
-                const container = fiCarouselRef.current;
-                if (container) {
-                  const first = container.firstElementChild as HTMLElement | null;
-                  const step = first ? first.offsetWidth + (parseInt(getComputedStyle(first).marginRight, 10) || 0) : container.offsetWidth;
-                  const next = Math.max(0, fiCarouselSlide - 1);
-                  container.scrollTo({ left: next * step, behavior: "smooth" });
-                  setFiCarouselSlide(next);
-                }
-              }}
-              className="btn-glass-outline p-2 rounded-full"
-              aria-label="Previous slide"
+        <Carousel
+          autoplayDelay={4000}
+          variant="center"
+          showDots
+          showArrows
+        >
+          {FI_CAROUSEL_SLIDES.map((slide) => (
+            <div
+              key={slide.src}
+              className="rounded-xl border-2 border-primary/20 bg-white overflow-hidden flex flex-col shadow-lg p-2 sm:p-3 h-[400px] sm:h-[460px]"
             >
-              <ChevronLeft className="w-5 h-5 text-primary" aria-hidden />
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                const container = fiCarouselRef.current;
-                if (container) {
-                  const first = container.firstElementChild as HTMLElement | null;
-                  const step = first ? first.offsetWidth + (parseInt(getComputedStyle(first).marginRight, 10) || 0) : container.offsetWidth;
-                  const next = Math.min(FI_CAROUSEL_SLIDES.length - 1, fiCarouselSlide + 1);
-                  container.scrollTo({ left: next * step, behavior: "smooth" });
-                  setFiCarouselSlide(next);
-                }
-              }}
-              className="btn-glass-outline p-2 rounded-full"
-              aria-label="Next slide"
-            >
-              <ChevronRight className="w-5 h-5 text-primary" aria-hidden />
-            </button>
-          </div>
-        </div>
+              <div className="flex-1 min-h-0 flex items-center justify-center">
+                <img
+                  src={`${ASSETS}${encodeURIComponent(slide.src)}`}
+                  alt={slide.alt}
+                  className="max-w-full max-h-full object-contain block"
+                />
+              </div>
+            </div>
+          ))}
+        </Carousel>
       </section>
 
       {/* FAQs – from dreamlifeapp.moneyling.org/product.html */}
@@ -316,10 +208,10 @@ onClick={() => {
         <h2 className="text-2xl sm:text-3xl font-raleway-bold text-primary text-center mb-4">
           FAQs
         </h2>
-        <p className="text-body-color font-raleway-medium text-center mb-8 max-w-2xl mx-auto">
+        <p className="text-body-color font-raleway-medium text-center mb-8 max-w-5xl mx-auto">
           How Moneyling brings all your financial education resources into one platform. We bring scale to your member engagement, without adding staff or events.
         </p>
-        <div className="max-w-3xl mx-auto space-y-2">
+        <div className="w-full max-w-5xl mx-auto space-y-2">
           {FI_FAQ_ITEMS.map((item, index) => {
             const isOpen = openFaqIndex === index;
             return (
