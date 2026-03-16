@@ -65,6 +65,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
+  // Hide the "slow load" fallback as soon as the app has mounted (so it never shows on a normal load)
+  useEffect(() => {
+    const fallback = document.getElementById("load-fallback");
+    if (fallback) fallback.style.display = "none";
+  }, []);
+
   // Close mobile menu on route change
   useEffect(() => {
     setMobileMenuOpen(false);

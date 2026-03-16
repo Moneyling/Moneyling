@@ -20,8 +20,9 @@
     <script>
       setTimeout(function(){
         var root = document.getElementById('root');
-        if (root && !root.innerHTML.trim()) document.getElementById('load-fallback').style.display = 'block';
-      }, 4000);
+        var fallback = document.getElementById('load-fallback');
+        if (root && fallback && !root.innerHTML.trim()) fallback.style.display = 'block';
+      }, 8000);
     </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>

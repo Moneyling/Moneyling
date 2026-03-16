@@ -15,7 +15,7 @@ const ASSETS = import.meta.env.BASE_URL;
 const DEMO_MS = {
   code: "NS-8",
   topic: "Earning Income",
-  url: `${LMS_BASE}/story-based-middle-school-national-standard-course-4/`,
+  url: `${LMS_BASE}/moneyling-ns-8-earning-income-course-module-demo/`,
 };
 const DEMO_HS = {
   code: "NS-12",
