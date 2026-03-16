@@ -20,7 +20,7 @@ const DEMO_MS = {
 const DEMO_HS = {
   code: "NS-12",
   topic: "Spending",
-  url: `${LMS_BASE}/moneyling-ns-12-spending-course/`,
+  url: `${LMS_BASE}/moneyling-ns-12-spending-course-module-demo/`,
 };
 
 const MS_FRAMEWORKS: { name: string; url: string }[] = [
@@ -295,8 +295,30 @@ export function ForEducatorsPage() {
         </p>
       </section>
 
+      {/* Quick jump: Middle School, High School, Young Adult */}
+      <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-6">
+        <a
+          href="#middle-school-offerings"
+          className="inline-flex items-center rounded-lg px-4 py-2.5 text-sm font-raleway-bold text-primary bg-mint/30 border-2 border-mint/50 hover:bg-mint/50 hover:border-primary/30 transition-colors shadow-sm"
+        >
+          Middle School
+        </a>
+        <a
+          href="#high-school-offerings"
+          className="inline-flex items-center rounded-lg px-4 py-2.5 text-sm font-raleway-bold text-primary bg-cream border-2 border-gold/40 hover:bg-gold/10 hover:border-gold/60 transition-colors shadow-sm"
+        >
+          High School
+        </a>
+        <a
+          href="#young-adult-offerings"
+          className="inline-flex items-center rounded-lg px-4 py-2.5 text-sm font-raleway-bold text-primary bg-primary/10 border-2 border-primary/20 hover:bg-primary/20 hover:border-primary/40 transition-colors shadow-sm"
+        >
+          Young Adult
+        </a>
+      </div>
+
       {/* Middle School Offerings – accordion: only the clicked container expands; the other stays its own height */}
-      <section className="mb-12 rounded-2xl bg-mint/15 border border-mint/40 px-4 py-6 sm:px-6">
+      <section id="middle-school-offerings" className="mb-12 rounded-2xl bg-mint/15 border border-mint/40 px-4 py-6 sm:px-6 scroll-mt-6">
         <h2 className="text-xl font-raleway-bold text-primary mb-1">Middle School Offerings</h2>
         <div className="w-16 h-0.5 bg-primary-light rounded-full mb-4" aria-hidden />
         <div className="flex justify-center mb-4">
@@ -456,7 +478,7 @@ export function ForEducatorsPage() {
       </section>
 
       {/* High School Offerings – accordion dropdowns, side by side on sm+ */}
-      <section className="mb-12 rounded-2xl bg-cream/50 border border-gold/30 px-4 py-6 sm:px-6">
+      <section id="high-school-offerings" className="mb-12 rounded-2xl bg-cream/50 border border-gold/30 px-4 py-6 sm:px-6 scroll-mt-6">
         <h2 className="text-xl font-raleway-bold text-primary mb-1">High School Offerings</h2>
         <div className="w-16 h-0.5 bg-gold rounded-full mb-4 mx-auto" aria-hidden />
         <div className="flex justify-center mb-4">
@@ -655,7 +677,7 @@ export function ForEducatorsPage() {
       </section>
 
       {/* Higher Education (Young Adults) – same accordion structure; hero image like High School */}
-      <section className="mb-12 rounded-2xl bg-primary/5 border border-primary/15 px-4 py-6 sm:px-6">
+      <section id="young-adult-offerings" className="mb-12 rounded-2xl bg-primary/5 border border-primary/15 px-4 py-6 sm:px-6 scroll-mt-6">
         <h2 className="text-xl font-raleway-bold text-primary mb-1">Higher Education (Young Adults)</h2>
         <div className="w-16 h-0.5 bg-teal rounded-full mb-4 mx-auto" aria-hidden />
         <div className="flex justify-center mb-4">
@@ -755,8 +777,8 @@ export function ForEducatorsPage() {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center gap-2 text-primary font-raleway-bold hover:underline"
+                                aria-label={`Open ${c.name} course`}
                               >
-                                Open course
                                 <ExternalLink className="w-3.5 h-3.5 shrink-0" aria-hidden />
                               </a>
                               <button
